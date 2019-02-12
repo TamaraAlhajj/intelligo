@@ -7,7 +7,7 @@ from sympy.parsing.sympy_parser import parse_expr
 
 class Maths(models.Model):
 
-    fn = models.TextField()
+    #fn = models.TextField()
 
     def dominator(fn):
         """ 
