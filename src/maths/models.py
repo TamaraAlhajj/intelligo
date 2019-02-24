@@ -1,12 +1,13 @@
 from django.db import models
 
-from sympy import *
+import sympy as sp
 from mpmath import *
 from sympy.parsing.sympy_parser import parse_expr
 
 
 class Maths(models.Model):
 
+        
     #fn = models.TextField()
 
     def dominator(fn):
@@ -34,6 +35,13 @@ class Maths(models.Model):
                 return 'O({})'.format(g)
         return 'O(n!)'
 
+    def solution(fn):
+        """ 
+        INPUT: f(n)
+        OUTPUT: Solution shown 
+        """
+        ans = dominator(fn)
+        
 
 """ 
 ###testing###
