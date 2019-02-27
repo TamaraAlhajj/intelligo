@@ -1,6 +1,6 @@
 from django.db import models
 
-import sympy as sp
+from sympy import *
 from mpmath import *
 from sympy.parsing.sympy_parser import parse_expr
 
@@ -39,32 +39,7 @@ class Maths(models.Model):
         """ 
         INPUT: f(n)
         OUTPUT: Solution shown 
-        """
-        ans = dominator(fn)
         
-
-""" 
-###testing###
-
-f1 = '4'
-f2 = '5+10'
-f3 = 'n'
-f4 = '2*n + 4'
-f5 = 'n*(n+1)/2'
-f6 = 'log(n) + n**2'
-f7 = 'n*log(log(n))'
-f8 = '2**n + n*log(n) + 4*n + 52'
-f9 = 'n**3 + log(n) - 5'
-f10 = 'n!'
-
-print(dominator(f1))
-print(dominator(f2))
-print(dominator(f3))
-print(dominator(f4))
-print(dominator(f5))
-print(dominator(f6))
-print(dominator(f7))
-print(dominator(f8))
-print(dominator(f9))
-print(dominator(f10))
- """
+        ans = dominator(fn)"""
+        pass
+        
