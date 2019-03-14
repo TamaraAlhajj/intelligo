@@ -20,8 +20,10 @@ from pages import views
 from django.urls import path, include
 
 urlpatterns = [
-    path('', views.home),
-    path('bigO/', views.bigO),
-    path('masters/', views.masters),
+
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.home, name='home'),
+    url(r'^masters/$', views.masters, name='masters'),
+    url(r'^bigO/$', views.bigO, name='bigO')
+
 ]
