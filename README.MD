@@ -7,7 +7,6 @@ _A web app to aid in understanding of complexity theory for my undergraduate hon
 ## Libraries and Languages
 
 - Python for mathematics backend (logic layer)
-- Javascript for web development backend (server layer)
 - Django for Python to web client
 - Bootstrap for frontend (UI layer)
 - node.js with npm for server
