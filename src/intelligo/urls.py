@@ -19,11 +19,13 @@ from django.contrib import admin
 from pages import views
 from django.urls import path, include
 
+
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
     url(r'^masters/$', views.masters, name='masters'),
-    url(r'^bigO/$', views.bigO, name='bigO')
+    url(r'^bigO/$', views.bigO, name='bigO'),
+    url(r'^info/$', views.info, name='info')
 
 ]
