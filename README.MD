@@ -4,7 +4,7 @@
 
 _A web app to aid in understanding of complexity theory for my undergraduate honours project._
 
-## Librarys and Languages
+## Libraries and Languages
 
 - Python for mathematics backend (logic layer)
 - Javascript for web development backend (server layer)
