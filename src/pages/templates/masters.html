@@ -2,6 +2,66 @@
 
 
 {% block content %}
-<h1>This will be the master's page</h1>
-<p>This is a template.</p>
+<div class="jumbotron">
+    <h1 class="display-4 font-italic">Master's Method</h1>
+    <p>Asymptotic analysis for divide-and-conquer recurrences</p>
+    <p>Detailed explanation here</p>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="form-group col-sm">
+            <label for="comment">Input for Equation of the form T(n)=aT(n/b)+Θ(nk(logn)i)</label>
+            <div class="input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">a</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-lg">
+            </div>
+
+            <div class="input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">b</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-lg">
+            </div>
+
+            <div class="input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">k</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-lg">
+            </div>
+            <div class="input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">i&nbsp;</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-lg">
+            </div>
+            <button class="btn btn-outline-primary container-fluid btn-lg mt-4">Run Analysis</button>
+        </div>
+
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Solution</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Pretty print of equation</h6>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Case Number</li>
+                <li class="list-group-item">Description of case</li>
+                <li class="list-group-item">Work to split/recombine vs subproblems - c_critical</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="card text-center">
+        <div class="card-header text-muted">
+            Equation given
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Insert an amazing dynamic tree here</h5>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

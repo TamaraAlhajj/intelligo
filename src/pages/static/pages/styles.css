@@ -1,4 +1,8 @@
-.navbar {
-    font-size: 200%;
-    font-weight: bold;
+.nav {
+  font-size: large;
+  font-weight: bold;
+}
+
+.jumbotron {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
 }
