@@ -2,7 +2,7 @@
 
 ## Understanding Complexity
 
-_A web app to aid in understanding of complexity theory, for my undergraduate honours project._
+_A web app to aid in understanding of asymptotic complexity theory, for my undergraduate honours project._
 
 ## Libraries and Languages
 
