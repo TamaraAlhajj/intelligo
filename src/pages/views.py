@@ -1,21 +1,34 @@
-from django.http import HttpResponse
-
 from django.shortcuts import render
-
-# Create your views here.
-
-
-def home(request):
-    return render(request, "home.html", {})
+from django.views.generic import TemplateView
+from pages.forms import ComplexityForm
 
 
-def info(request):
-    return render(request, "info.html", {})
+class Home(TemplateView):
+    template_name = "home.html"
 
 
-def bigO(request):
-    return render(request, "bigO.html", {})
+class Info(TemplateView):
+    template_name = "info.html"
 
 
-def masters(request):
-    return render(request, "masters.html", {})
+class BigO(TemplateView):
+    template_name = "bigO.html"
+
+    def get(self, request):
+        form = ComplexityForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = ComplexityForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['post']
+            # init blank form
+            form = ComplexityForm()
+
+        args = {'form': form, 'text': text}
+        
+        return render(request, self.template_name, args)
+
+
+class Masters(TemplateView):
+    template_name = "masters.html"

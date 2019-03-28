@@ -16,16 +16,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from pages import views
+from pages.views import Home, BigO, Masters, Info
 from django.urls import path, include
 
 
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home, name='home'),
-    url(r'^masters/$', views.masters, name='masters'),
-    url(r'^bigO/$', views.bigO, name='bigO'),
-    url(r'^info/$', views.info, name='info')
+    url(r'^$', Home.as_view(), name='home'),
+    url(r'^masters/$', Masters.as_view(), name='masters'),
+    url(r'^bigO/$', BigO.as_view(), name='bigO'),
+    url(r'^info/$', Info.as_view(), name='info')
 
 ]

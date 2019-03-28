@@ -8,7 +8,6 @@ from sympy.parsing.sympy_parser import parse_expr
 n = symbols('n')
 
 
-
 def dominator(fn):
     """ 
     INPUT: f(n) \n
@@ -60,23 +59,23 @@ def masters(a, b, k, i):
     elif(i < 0 or None):
         msg += "i must be at least 0. "
     else:
-        c_critical = int(log(a,b))
+        c_critical = log(a, b)
         print("The critical exponent is \n=log(# of subproblems)/log(relative problem size) \n= log(a)/log(b) \n= log base b of a \n= {}".format(c_critical))
         fn = parse_expr("n**{} * log(n)**{}".format(k, i))
         print("Recurrence: is {}T(n/{}) + {}".format(a, b, fn))
-        """ c = int(str(diff(fn,n))[:1])
-        print(c) """
+
         if(c_critical > k):
             # case 1
             msg = "Case 1: \nT(n) = Θ(n^{})".format(c_critical)
         if(c_critical == k):
             # case 2
-            expr = parse_expr("Θ(n**{} * (log(n))**{})".format(c_critical, i+1))
+            expr = parse_expr(
+                "Θ(n**{} * (log(n))**{})".format(c_critical, i+1))
             msg = "Case 2: \nT(n) = {}".format(expr)
         if(c_critical < k):
             # case 3
             msg = "Case 3: \nT(n) = {}".format(fn)
-        
+
     return msg
 
 
@@ -86,10 +85,12 @@ def run():
 
     while(testing):
 
-        user = input("Press 1 for Big-O tool. Press 2 for Master's Method Tool. \n > ")
+        user = input(
+            "Press 1 for Big-O tool. Press 2 for Master's Method Tool. \n > ")
         if(user == '1'):
             try:
-                f = input("Please input your function using python's math format. \nf(n) = ")
+                f = input(
+                    "Please input your function using python's math format. \nf(n) = ")
                 ans = dominator(f)
                 g = ans[0]
                 const = ans[1]
@@ -97,11 +98,18 @@ def run():
                 print("-"*20 + "OUTPUT" + "-"*20)
                 if(const == None):
                     if(g == '1'):
-                        print("The function {} is not dependent on n. \nThus, The run time is constant. \nIn other words, f(n) is O({})".format(f, g))
+                        print(
+                            "The function {} is not dependent on n. \nThus, The run time is constant. \nIn other words, f(n) is O({})".format(f, g))
                     else:
-                        print("The function {} is bound by {}. Thus, f(n) is O({})".format(f, g, g))
+                        print(
+                            "The function {} is bound by {}. Thus, f(n) is O({})".format(f, g, g))
                 else:
-                    print("The limit of ({})/{} as n grows to infinity is {}. \nThus, fn is bound by {}. \nIn other words, f(n) is O({})".format(f, g, const, g, g))
+                    if(const > 0):
+                        print(
+                            "The limit of ({})/{} as n grows to infinity is {}. \nThus, fn is tight bound by {}. \nIn other words, f(n) is Θ({})".format(f, g, const, g, g))
+                    else:
+                        print(
+                            "The limit of ({})/{} as n grows to infinity is {}. \nThus, fn is bound by {}. \nIn other words, f(n) is O({})".format(f, g, const, g, g))
             except SyntaxError:
                 print("Invalid Syntax given for f(n)")
         elif(user == '2'):
@@ -123,6 +131,7 @@ def run():
         if(check == 'n'):
             testing = False
 
+
 run()
 
 ###testing###
@@ -136,7 +145,6 @@ f = 'log(n) + n**2'
 f = 'n*log(log(n))'
 f = '2**n + n*log(n) + 4*n + 52'
 f = '3**n - 2'
-f = 
 f = 'n**3 + log(n) - 5'
 f = 'n!'
 """
