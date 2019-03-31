@@ -10,22 +10,26 @@
 <div class="container">
     <div class="row">
         <form class="form-group col-sm" method="post">
-            {% comment %} <label for="comment">Input Equation</label>
-            <textarea class="form-control input-lg" rows="5" id="comment"></textarea> {% endcomment %}
+            <label for="id_post">$$f(n) = $$</label>
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form.post }}
             <button type="submit" class="btn btn-outline-primary container-fluid btn-lg mt-4">Run Analysis</button>
         </form>
     </div>
-    <h4 style="color:red;" >Submitted: {{ text }}</h4>
     <br>
+    <div class="container">
+        {% for post in posts %}
+        <h2>{{ post.post }}</h2>
+        <p>{{ post.date }}</p>
+        {% endfor %}
+    </div>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Solution</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Pretty print of equation</h6>
+            <h3 class="card-title">Analysis $$\text{Given } f(n) =$$</h3>
+            <h4 class="card-subtitle mb-2 text-muted">$$\rightarrow f(n) = O() $$</4>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">limit of f(n) / g(n)</li>
-                <li class="list-group-item">constant found and this implies...</li>
+                <li class="list-group-item">Solution</li>
+                <li class="list-group-item">Limit, constant found, and this implies...</li>
                 <li class="list-group-item">big-o , omega, theta</li>
             </ul>
         </div>

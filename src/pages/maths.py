@@ -1,12 +1,7 @@
 from sympy import *
 from sympy.parsing.sympy_parser import parse_expr
 
-# from sympy.interactive import printing
-# printing.init_printing(use_latex=True)
-# pprint_try_use_unicode()
-
 n = symbols('n')
-
 
 def dominator(fn):
     """ 
@@ -19,8 +14,6 @@ def dominator(fn):
 
     # lowest possible bound, constant
     if (f.is_constant()):
-        #g = parse_expr('1')
-        #lim = latex(Limit(f/g, n, oo))
         g = '1'
         return (g, None)
 
@@ -35,11 +28,10 @@ def dominator(fn):
 
         if (check.is_constant() and (check != oo)):
             g = str(g)
-            #lim = latex(Limit(f/g, n, oo))
+            print("check is {}".format(check))
             return (g, check)
 
     g = 'n!'
-    #lim = latex(Limit(f/g, n, oo))
 
     return (g, None)
 
