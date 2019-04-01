@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from pages.forms import ComplexityForm
 from pages.models import ComplexityPost
 from django.shortcuts import render, redirect
+from pages.MathsLogic import bigO, masters
 
 class Home(TemplateView):
     template_name = "home.html"
@@ -17,9 +18,9 @@ class BigO(TemplateView):
 
     def get(self, request):
         form = ComplexityForm()
-        posts = ComplexityPost.objects.all()
+        #post = ComplexityPost.objects.all().order_by('-date')[0]
         
-        args = {'form': form, 'posts': posts}
+        args = {'form': form}
         return render(request, self.template_name, args)
 
     def post(self, request):
@@ -27,11 +28,17 @@ class BigO(TemplateView):
         if form.is_valid():
             form.save()
             text = form.cleaned_data['post']
+
+            soln = bigO(text)
+            f = soln[0]
+            g = soln[1]
+            const = soln[2]
+
             # init blank form
             form = ComplexityForm()
-            return redirect('bigO')
+            #return redirect('bigO')
 
-        args = {'form': form, 'text': text}
+        args = {'form': form, 'fn': f, 'g': g, 'const': const}
         return render(request, self.template_name, args)
 
 

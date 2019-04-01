@@ -1,13 +1,14 @@
 from sympy import *
 from sympy.parsing.sympy_parser import parse_expr
 
-n = symbols('n')
 
 def dominator(fn):
-    """ 
+    """
     INPUT: f(n) \n
     OUTPUT: O(g(n)) such that f(n) is bounded by g(n)
     """
+
+    n = symbols('n')
 
     # turn input into math expression
     f = parse_expr(fn)
@@ -37,11 +38,15 @@ def dominator(fn):
 
 
 def masters(a, b, k, i):
+    """ 
+        INPUT: a >= 0, b > 1, k >= 0, i >= 0 
+        \nOUTPUT: Master's Method Analysis of the form
+        \n      T(n) = aT(n/b) + Θ(n^k * (logn)^i)
+    """
 
-    # T(n) = aT(n/b) + f(n) where a >= 1 and b > 1
+    n = symbols('n')
 
     msg = "Invalid input: "
-
     if(a < 0 or None):
         msg += "a must be a positive number. "
     elif(b <= 1 or None):
@@ -107,7 +112,8 @@ def run():
         elif(user == '2'):
             try:
                 print("For the recurrence T(n) = aT(n/b) + Θ(n^k * (logn)^i)")
-                tn = input("Seperated by spaces, please input a, b, k, i : ")
+                tn = input(
+                    "Seperated by spaces, please input a, b, k, i : ")
                 lst = tn.split(' ', 3)
                 ints = [int(x) for x in lst]
 
@@ -123,8 +129,8 @@ def run():
         if(check == 'n'):
             testing = False
 
+# run()
 
-run()
 
 ###testing###
 """
