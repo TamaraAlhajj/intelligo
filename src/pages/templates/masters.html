@@ -10,44 +10,44 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="form-group col-sm">
-            <label for="comment">Input for Equation of the form $$ T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n)) $$</label>
+        <form class="form-group col-sm" method="post">
+            <label for="id_post">Input for Equation of the form $$ T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n)) $$</label>
             <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-lg">a</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-lg">
+                {% csrf_token %}
+                {{ form.post_a }}            
             </div>
-
             <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-lg">b</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-lg">
+                {% csrf_token %}
+                {{ form.post_b }}            
             </div>
-
             <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-lg">k</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-lg">
+                {% csrf_token %}
+                {{ form.post_k }}            
             </div>
             <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-lg">i&nbsp;</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-lg">
+                {% csrf_token %}
+                {{ form.post_i }}            
             </div>
-            <button class="btn btn-outline-primary container-fluid btn-lg mt-4">Run Analysis</button>
-        </div>
-
+            <button type="submit" class="btn btn-outline-primary container-fluid btn-lg mt-4">Run Analysis</button>
+        </form>
     </div>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Solution</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Pretty print of equation</h6>
+            <h5 class="card-subtitle mb-2 text-muted">$$\text{Given } T(n)={{ a }}T(\frac{n}{ {{ b }} })+ \Theta(n^{ {{ k }} }(log^{ {{ i }} }n)) $$</h5>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Case Number</li>
+                <li class="list-group-item">{{ msg }}</li>
                 <li class="list-group-item">Description of case</li>
                 <li class="list-group-item">Work to split/recombine vs subproblems - c_critical</li>
             </ul>
