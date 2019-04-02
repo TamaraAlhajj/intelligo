@@ -16,15 +16,8 @@ def bigO(fn):
     f = parse_expr(fn)
     soln.append(latex(f))
 
-    # lowest possible bound, constant
-    if (f.is_constant()):
-        g = '1'
-        soln.append(g)
-        soln.append(g)
-        return (soln)
-
     # otherwise check common bounds
-    bounds = ['log(n)', 'log(n)**2', 'sqrt(n)', 'n', 'n*log(log(n))',
+    bounds = ['1', 'log(n)', 'log(n)**2', 'sqrt(n)', 'n', 'n*log(log(n))',
               'n*log(n)', 'n**2', 'n**3', '2**n', '3**n']
     math_bounds = [parse_expr(e) for e in bounds]
 
