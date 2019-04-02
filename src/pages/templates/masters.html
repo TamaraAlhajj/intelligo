@@ -46,14 +46,12 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-subtitle mb-2 text-muted">$$\textbf{Analysis of } {{ T }}$$</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    {% for line in ans %}
-                    $${{ line }}$$
-                    <br>
-                    {% endfor %}
-                </li>
+            <h5 class="card-subtitle mb-2 text-muted">$${{ T }}$$</h5>
+            <div class="container">
+                {% for line in ans %}
+                $${{ line }}$$
+                <br>
+                {% endfor %}
             </ul>
         </div>
     </div>

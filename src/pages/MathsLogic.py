@@ -28,6 +28,8 @@ def bigO(fn):
               'n*log(n)', 'n**2', 'n**3', '2**n', '3**n']
     math_bounds = [parse_expr(e) for e in bounds]
 
+    omega = -1
+    theta = False
     for g in math_bounds:
         # check if f(n) is bounded by g(n) as n --> inf
         check = Limit(f/g, n, oo).doit()
@@ -36,11 +38,30 @@ def bigO(fn):
             g = latex(g)
             soln.append(g)
             soln.append(check)
+
+            if(check > 0):
+                theta = True
+            elif(check == 0):
+                omega = g
+            elif(omega is not -1):
+                omega = bounds[omega]
+            else:
+                omega = '1'
+            
+            soln.append(omega)
+            soln.append(theta)
             return (soln)
+
+        omega += 1
 
     g = 'n!'
     soln.append(g)
     soln.append(check)
+
+    omega = bounds[omega]
+    soln.append(omega)
+    soln.append(theta)
+    
     return (soln)
 
 

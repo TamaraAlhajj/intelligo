@@ -47,4 +47,4 @@ class MastersForm(forms.ModelForm):
     class Meta:
         model = MastersPost
         # comma makes this a tuple and thus immutable
-        fields = ('post_a', 'post_b', 'post_k', 'post_i' )
+        fields = ('post_a', 'post_b', 'post_k', 'post_i')

@@ -20,13 +20,22 @@
 
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title">$$\text{Analysis of } f(n) = {{ f }}$$</h3>
-            <h4 class="card-subtitle mb-2 text-muted">$$\rightarrow f(n) = O({{ g }}) $$</4>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Solution</li>
-                    <li class="list-group-item">Limit, constant found, and this implies...</li>
-                    <li class="list-group-item">big-o , omega, theta</li>
-                </ul>
+            <h3 class="card-title">{{ f }}</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" style="font-size: 24px;">Solution $${{ g }}$$</li>
+                <li class="list-group-item" style="font-size: 24px;">
+                    {% for line in lim %}
+                    {{ line }}
+                    <br>
+                    {% endfor %}
+                </li>
+                <li class="list-group-item" style="font-size: 24px;">
+                    {% for line in more %}
+                    {{ line }}
+                    <br>
+                    {% endfor %}
+                </li>
+            </ul>
         </div>
     </div>
 </div>
