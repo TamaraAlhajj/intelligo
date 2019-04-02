@@ -5,6 +5,7 @@ from pages.models import ComplexityPost, MastersPost
 from django.shortcuts import render, redirect
 from pages.MathsLogic import bigO, masters
 
+
 class Home(TemplateView):
     template_name = "home.html"
 
@@ -19,16 +20,18 @@ class BigO(TemplateView):
     def get(self, request):
         form = ComplexityForm()
         #post = ComplexityPost.objects.all().order_by('-date')[0]
-        
+
         args = {'form': form}
         return render(request, self.template_name, args)
 
     def post(self, request):
         form = ComplexityForm(request.POST)
         if form.is_valid():
+            # save data and clean malicious input
             form.save()
             text = form.cleaned_data['post']
 
+            # run maths
             soln = bigO(text)
             f = soln[0]
             g = soln[1]
@@ -36,9 +39,8 @@ class BigO(TemplateView):
 
             # init blank form
             form = ComplexityForm()
-            #return redirect('bigO')
 
-        args = {'form': form, 'fn': f, 'g': g, 'const': const}
+        args = {'form': form, 'f': f, 'g': g, 'const': const}
         return render(request, self.template_name, args)
 
 
@@ -48,7 +50,7 @@ class Masters(TemplateView):
     def get(self, request):
         form = MastersForm()
         #post = ComplexityPost.objects.all().order_by('-date')[0]
-        
+
         args = {'form': form}
         return render(request, self.template_name, args)
 
@@ -61,11 +63,32 @@ class Masters(TemplateView):
             k = int(form.cleaned_data['post_k'])
             i = int(form.cleaned_data['post_i'])
 
-            msg = masters(a, b, k, i)
+            soln = masters(a, b, k, i)
+            ans = list()
+
+            if (type(soln) == str):
+                T = "\\textbf{Invalid Input}"
+
+                ans.append("\\text{{{}}}".format(soln))
+                ans.append("\\text{Please try again.}")
+                
+                args = {'form': form, 'T': T, 'ans': ans}
+
+            else:
+                T = soln[0]
+
+                ans.append("c_{crit} = \\textit{the work to split/recombine vs subproblems}")
+                ans.append("= \\textit{log(# of subproblems)/log(relative problem size)}")
+                ans.append("= log(a)/log(b)")
+                ans.append(soln[1])
+                ans.append("\\approx {}".format(soln[2]))
+                ans.append("\\text{{From this we deduce }} {} \\text{{, which then implies we have case }} {}".format(soln[3], soln[4]))
+                ans.append("\\therefore {}".format(soln[5]))
+                tree_msg = "As seen below, the recursion tree is {} in this case.".format(soln[6])
+
+                args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg}
 
             # init blank form
             form = MastersForm()
 
-        args = {'form': form, 'a': a, 'b': b, 'k': k, 'i': i, 'msg': msg}
         return render(request, self.template_name, args)
-

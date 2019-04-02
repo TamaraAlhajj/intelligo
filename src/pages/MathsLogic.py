@@ -14,7 +14,7 @@ def bigO(fn):
 
     # turn input into math expression
     f = parse_expr(fn)
-    soln.append(fn)
+    soln.append(latex(f))
 
     # lowest possible bound, constant
     if (f.is_constant()):
@@ -33,7 +33,7 @@ def bigO(fn):
         check = Limit(f/g, n, oo).doit()
 
         if (check.is_constant() and (check != oo)):
-            g = str(g)
+            g = latex(g)
             soln.append(g)
             soln.append(check)
             return (soln)
@@ -53,31 +53,63 @@ def masters(a, b, k, i):
 
     n = symbols('n')
 
-    msg = "Invalid input: "
+    msg = "According to the Masters Theorem\n"
     if(a < 0 or None):
-        msg += "a must be a positive number. "
+        msg += "a must be a positive number.\n"
     elif(b <= 1 or None):
-        msg += "b must be greater than 1. "
+        msg += "b must be greater than 1.\n"
     elif(k < 0 or None):
-        msg += "k must be at least 0. "
+        msg += "k must be at least 0.\n"
     elif(i < 0 or None):
-        msg += "i must be at least 0. "
+        msg += "i must be at least 0.\n"
     else:
         c_critical = log(a, b)
-        print("The critical exponent is \n=log(# of subproblems)/log(relative problem size) \n= log(a)/log(b) \n= log base b of a \n= {}".format(c_critical))
+
+        crit_latex = "= \log_{} {}".format(b, a)
+
         fn = parse_expr("n**{} * log(n)**{}".format(k, i))
-        print("Recurrence: is {}T(n/{}) + {}".format(a, b, fn))
+        T = latex("T(n) = {}T(n/{}) + \Theta({})".format(a, b, fn))
 
         if(c_critical > k):
-            # case 1
-            msg = "Case 1: \nT(n) = Θ(n^{})".format(c_critical)
+            case = 1
+            explain = "c_{crit} > k"
+            tree = "leaf-heavy"
+            msg = "T(n) = \Theta(n^{{\log_b a}}) = \Theta({})".format(c_critical)
+
         if(c_critical == k):
-            # case 2
-            expr = parse_expr(
-                "Θ(n**{} * (log(n))**{})".format(c_critical, i+1))
-            msg = "Case 2: \nT(n) = {}".format(expr)
+            case = 2
+            explain = "c_{crit} == k"
+            tree = "balanced"
+
+            if(c_critical == 0):
+                expr = latex("log^{{{}}} n".format(i+1))
+            elif(c_critical == 1):
+                expr = latex("n log^{{{}}} n".format(i+1))
+            else:
+                expr = latex("n^{{{}}}log^{{{}}} n".format(c_critical, i+1))
+
+            msg = "T(n) = \Theta(n^{{\log_b a}} \log^{{i+1}} n) = \Theta({})".format(expr)
+
         if(c_critical < k):
-            # case 3
-            msg = "Case 3: \nT(n) = {}".format(fn)
+            case = 3
+            explain = "c_{crit} < k"
+            tree = "root-heavy"
+
+            if(k == 1):
+                if(i == 0):
+                    msg = "T(n) = \Theta({{n}}) = \Theta({})".format(latex(fn))
+                elif(i == 1):
+                    msg = "T(n) = \Theta({{n log n }}) = \Theta({})".format(latex(fn))
+                else:
+                    msg = "T(n) = \Theta({{n log^{{i}}n }}) = \Theta({})".format(latex(fn))
+            else:
+                if(i == 0):
+                    msg = "T(n) = \Theta({{n^{{k}}}}) = \Theta({})".format(latex(fn))
+                elif(i == 1):
+                    msg = "T(n) = \Theta({{n^{{k}} log n }}) = \Theta({})".format(latex(fn))
+                else:
+                    msg = "T(n) = \Theta({{n^{{k}} log^{{i}}n }}) = \Theta({})".format(latex(fn))
+
+        return (T, crit_latex, c_critical, explain, case, latex(msg), tree)
 
     return msg

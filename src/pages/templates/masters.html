@@ -11,45 +11,49 @@
 <div class="container">
     <div class="row">
         <form class="form-group col-sm" method="post">
-            <label for="id_post">Input for Equation of the form $$ T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n)) $$</label>
+            <label for="id_post">Input for Equation of the form $$ T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n))
+                $$</label>
             <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-lg">a</span>
                 </div>
                 {% csrf_token %}
-                {{ form.post_a }}            
+                {{ form.post_a }}
             </div>
             <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-lg">b</span>
                 </div>
                 {% csrf_token %}
-                {{ form.post_b }}            
+                {{ form.post_b }}
             </div>
             <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-lg">k</span>
                 </div>
                 {% csrf_token %}
-                {{ form.post_k }}            
+                {{ form.post_k }}
             </div>
             <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-lg">i&nbsp;</span>
                 </div>
                 {% csrf_token %}
-                {{ form.post_i }}            
+                {{ form.post_i }}
             </div>
             <button type="submit" class="btn btn-outline-primary container-fluid btn-lg mt-4">Run Analysis</button>
         </form>
     </div>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-subtitle mb-2 text-muted">$$\text{Given } T(n)={{ a }}T(\frac{n}{ {{ b }} })+ \Theta(n^{ {{ k }} }(log^{ {{ i }} }n)) $$</h5>
+            <h5 class="card-subtitle mb-2 text-muted">$$\textbf{Analysis of } {{ T }}$$</h5>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{ msg }}</li>
-                <li class="list-group-item">Description of case</li>
-                <li class="list-group-item">Work to split/recombine vs subproblems - c_critical</li>
+                <li class="list-group-item">
+                    {% for line in ans %}
+                    $${{ line }}$$
+                    <br>
+                    {% endfor %}
+                </li>
             </ul>
         </div>
     </div>
@@ -57,7 +61,7 @@
 <div class="container mt-4">
     <div class="card text-center">
         <div class="card-header text-muted">
-            Equation given
+            {{ tree_msg }}
         </div>
         <div class="card-body">
             <h5 class="card-title">Insert an amazing dynamic tree here</h5>

@@ -5,7 +5,7 @@ from pages.models import ComplexityPost, MastersPost
 class ComplexityForm(forms.ModelForm):
     post = forms.CharField(required=True, widget=forms.TextInput(
         attrs={
-            'class': 'form-control col-sm-7',
+            'class': 'form-control col-12',
             'placeholder': 'Input Equation...'
         }
     ))
