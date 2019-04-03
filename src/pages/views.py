@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from pages.forms import ComplexityForm, MastersForm
 from pages.models import ComplexityPost, MastersPost
 from django.shortcuts import render, redirect
-from pages.MathsLogic import bigO, masters
+from pages.logicLayer import bigO, masters, generate_nodes
 
 
 class Home(TemplateView):
@@ -92,6 +92,13 @@ class Masters(TemplateView):
             soln = masters(a, b, k, i)
             ans = list()
 
+            # create tree
+            tree = generate_nodes(a, b, k, i)
+            height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(tree[0])
+            nodes2 = tree[1]
+            nodes3 = tree[2]
+            leaves = tree[3]
+
             if (type(soln) == str):
                 T = "\\textbf{Invalid Input}"
 
@@ -109,9 +116,9 @@ class Masters(TemplateView):
                 ans.append("= {}".format(soln[2]))
                 ans.append("\\text{{From this we deduce }} {} \\text{{, which then implies we have case }} {}".format(soln[3], soln[4]))
                 ans.append("\\therefore {}".format(soln[5]))
-                tree_msg = "As seen below, the recursion tree is {} in this case.".format(soln[6])
+                tree_msg = "As seen below, the recursion tree is {} in this case.".format(soln[6])                
 
-            args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg}
+            args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg, 'nodes2': nodes2, 'nodes3': nodes3, 'leaves': leaves, 'height': height, 'a': a, 'b': b, 'k': k, 'i': i}
 
             # init blank form
             form = MastersForm()

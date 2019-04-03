@@ -52,17 +52,47 @@
                 $${{ line }}$$
                 <br>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
     </div>
-</div>
-<div class="container mt-4">
-    <div class="card text-center">
-        <div class="card-header text-muted">
-            {{ tree_msg }}
+    <div class="container mt-4">
+        <div class="card text-center">
+            <div class="card-header text-muted">
+                $${{ height }}$$
+            </div>
+            <div class="card-body">
+                <!-- For recursion tree dynamic generation -->
+                <link href="https://unpkg.com/treeflex/dist/css/treeflex.css" rel="stylesheet">
+                <div class="tf-tree masters">
+                    <ul>
+                        <li>
+                            <span class="tf-nc">{{ a }}</span>
+                            {% for nodes2 in level2 %}
+                            <ul>
+                                <li>
+                                    <span class="tf-nc">$${{ nodes2 }}$$</span>
+                                    {% for nodes3 in level3 %}
+                                    <ul>
+                                        <li>
+                                            <span class="tf-nc">$${{ nodes3 }}$$</span>
+                                            {% for leaf in leaves %}
+                                            <ul>
+                                                <li><span class="tf-nc">$${{ leaf }}$$</span></li>
+                                            </ul>
+                                            {% endfor %}
+                                        </li>
+                                    </ul>
+                                    {% endfor %}
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <h5 class="card-title">Insert an amazing dynamic tree here</h5>
+        <div class="card-footer">
+            <blockquote>Recursion Tree</blockquote>
         </div>
     </div>
 </div>

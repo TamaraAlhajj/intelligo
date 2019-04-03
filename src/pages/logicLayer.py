@@ -40,7 +40,7 @@ def bigO(fn):
                 omega = bounds[omega]
             else:
                 omega = '1'
-            
+
             soln.append(omega)
             soln.append(theta)
             return (soln)
@@ -54,8 +54,28 @@ def bigO(fn):
     omega = bounds[omega]
     soln.append(omega)
     soln.append(theta)
-    
+
     return (soln)
+
+
+def masters_invalid(a, b, k, i):
+    """
+        INPUT: Master's Arguments
+        \nOUTPUT: tuple of True, and error msg if invalid
+    """
+    msg = "According to the Masters Theorem\n"
+    if(a < 0 or None):
+        msg += "a must be a positive number, "
+    elif(b <= 1 or None):
+        msg += "b must be greater than 1, "
+    elif(k < 0 or None):
+        msg += "k must be at least 0, "
+    elif(i < 0 or None):
+        msg += "i must be at least 0, "
+    else:
+        return (False, "Valid input")
+
+    return (True, msg)
 
 
 def masters(a, b, k, i):
@@ -67,15 +87,13 @@ def masters(a, b, k, i):
 
     n = symbols('n')
 
-    msg = "According to the Masters Theorem\n"
-    if(a < 0 or None):
-        msg += "a must be a positive number.\n"
-    elif(b <= 1 or None):
-        msg += "b must be greater than 1.\n"
-    elif(k < 0 or None):
-        msg += "k must be at least 0.\n"
-    elif(i < 0 or None):
-        msg += "i must be at least 0.\n"
+    valid = masters_invalid(a, b, k, i)
+
+    if(valid[0]):
+
+        msg = valid[1]
+        return msg
+
     else:
         c_critical = log(a, b)
 
@@ -88,7 +106,8 @@ def masters(a, b, k, i):
             case = 1
             explain = "c_{crit} > k"
             tree = "leaf-heavy"
-            msg = "T(n) = \Theta(n^{{\log_b a}}) = \Theta({})".format(c_critical)
+            msg = "T(n) = \Theta(n^{{\log_b a}}) = \Theta({})".format(
+                c_critical)
 
         if(c_critical == k):
             case = 2
@@ -113,17 +132,44 @@ def masters(a, b, k, i):
                 if(i == 0):
                     msg = "T(n) = \Theta({{n}}) = \Theta({})".format(latex(fn))
                 elif(i == 1):
-                    msg = "T(n) = \Theta({{n log n }}) = \Theta({})".format(latex(fn))
+                    msg = "T(n) = \Theta({{n log n }}) = \Theta({})".format(
+                        latex(fn))
                 else:
-                    msg = "T(n) = \Theta({{n log^{{i}}n }}) = \Theta({})".format(latex(fn))
+                    msg = "T(n) = \Theta({{n log^{{i}}n }}) = \Theta({})".format(
+                        latex(fn))
             else:
                 if(i == 0):
-                    msg = "T(n) = \Theta({{n^{{k}}}}) = \Theta({})".format(latex(fn))
+                    msg = "T(n) = \Theta({{n^{{k}}}}) = \Theta({})".format(
+                        latex(fn))
                 elif(i == 1):
-                    msg = "T(n) = \Theta({{n^{{k}} log n }}) = \Theta({})".format(latex(fn))
+                    msg = "T(n) = \Theta({{n^{{k}} log n }}) = \Theta({})".format(
+                        latex(fn))
                 else:
-                    msg = "T(n) = \Theta({{n^{{k}} log^{{i}}n }}) = \Theta({})".format(latex(fn))
+                    msg = "T(n) = \Theta({{n^{{k}} log^{{i}}n }}) = \Theta({})".format(
+                        latex(fn))
 
         return (T, crit_latex, c_critical, explain, case, latex(msg), tree)
 
-    return msg
+
+def generate_nodes(a, b, k, i):
+
+    level2 = list()
+    level3 = list()
+    level4 = list()  # pseudo-leaves
+
+    if(masters_invalid(a, b, k, i)[0]):
+        height = "\\log_{b} n"
+        level2.append("\\frac{{n}}{{a}}")
+        level3.append("\\frac{{n}}{{a**2}}")
+        level4.append("\\frac{{n}}{{a**3}} \\newline")
+    else:
+        height = "\\log_{{{}}} n".format(b)
+
+        for i in range(1, a+1):
+            level2.append("\\frac{{n}}{{{}}}".format(a))
+        for i in range(1, a**2 + 1):
+            level3.append("\\frac{{n}}{{{}}}".format(a**2))
+        for i in range(1, a**3 + 1):
+            level4.append("\\frac{{n}}{{{}}} \\newline...".format(a**3))
+    
+    return (height, level2, level3, level4)
