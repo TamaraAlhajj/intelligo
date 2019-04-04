@@ -102,26 +102,25 @@ def masters(a, b, k, i):
 
     else:
 
-        # for pretty printing functions with latex in view
-        crit_latex = "c_{{{critical}}} = \log_{} {}".format(b, a)
-        fn = latex("n^{{{}}}log^{{{}}} n".format(k, i))
-        T = latex("T(n) = {}T(n/{}) + \Theta({})".format(a, b, fn))
-        
         # for math operations
         fn = parse_expr("n**{} * log(n)**{}".format(k, i))
         c_critical = log(a, b)
 
+        # for pretty printing functions with latex in view
+        crit_latex = "c_{{critical}} = \log_{} {} = {}".format(b, a, c_critical)
+        f = latex("n^{{{}}}log^{{{}}} n".format(k, i))
+        T = latex("T(n) = {}T(n/{}) + \Theta({})".format(a, b, f))
+        
+
         if(c_critical > k):
             case = 1
             explain = "c_{crit} > k"
-            tree = "leaf-heavy"
             expr = latex("n^{{{}}}").format(crit_latex)
             msg = "T(n) = \Theta(n^{{c_{{critical}}}}) = \Theta(n^{{\log_b a}}) = \Theta({})".format(expr)
 
         if(c_critical == k):
             case = 2
             explain = "c_{crit} == k"
-            tree = "balanced"
 
             if(c_critical == 0):
                 expr = latex("log^{{{}}} n".format(i+1))
@@ -135,7 +134,6 @@ def masters(a, b, k, i):
         if(c_critical < k):
             case = 3
             explain = "c_{crit} < k"
-            tree = "root-heavy"
             fn = latex("n^{{{}}}log^{{{}}} n".format(k, i))
 
             if(k == 1):
@@ -153,20 +151,20 @@ def masters(a, b, k, i):
                 else:
                     msg = "T(n) = \Theta({{n^{{k}} log^{{i}}n }}) = \Theta({})".format(fn)
 
-        return (T, crit_latex, c_critical, explain, case, latex(msg), tree)
+        return (T, crit_latex, explain, case, latex(msg))
 
 
 def generate_tree(a, b, k, i):
 
     d = dict()
+    d[0] = Node("f(n) Root Node")
 
     if(masters_invalid(a, b, k, i)[0]):
         height = "\\log_{b} n"
-        d[0] = Node("f(n)")
-
         parent = 0
+
         for i in range(1, a+1):
-            d[i] = Node("f(\\frac{{n}}{{b}})", parent=parent)
+            d[i] = Node("f(n/b) Node: {}".format(i), parent=d[parent])
 
         parent += 1
         count_children = 0
@@ -174,42 +172,47 @@ def generate_tree(a, b, k, i):
             if(count_children == a):
                 parent += 1
                 count_children = 0
-            d[i] = Node("f(\\frac{{n}}{{b**2}})", parent=parent)
+            d[i] = Node("f(n/b^2) Node: {}".format(i), parent=d[parent])
             count_children += 1
 
         for i in range(1, a**3 + 1):
             if(count_children == a):
                 parent += 1
                 count_children = 0
-            d[i] = Node("f(\\frac{{n}}{{b**3}})")
+            d[i] = Node("f(n/b^3) Node: {}".format(i), parent=d[parent])
             count_children += 1
 
     else:
-        height = "\\log_{{{}}} n".format(b)
-        d[0] = Node("f({})".format(b))
 
+        height = "\\log_{{{}}} n".format(b)
+        total = 1
         parent = 0
+
         for i in range(1, a + 1):
-            d[i] = Node("f(\\frac{{n}}{{{}}})".format(b), parent=d[0])
+            d[total] = Node("f(n/{}) Node: {}".format(b, total), parent=d[parent])
+            total += 1
 
         parent += 1
         count_children = 0
-        for i in range(a + 1, a**2 + 1):
+
+        for i in range(a**2):
             if(count_children == a):
                 print(parent)
                 parent += 1
                 count_children = 0
-            d[i] = Node("f(\\frac{{n}}{{{}}})".format(b**2), parent=d[parent])
+            d[total] = Node("f(n/{}) Node: {}".format(b**2, total), parent=d[parent])
+            total += 1
             count_children += 1
 
         parent += 1
         count_children = 0
-        for i in range(a**2 + 1, a**3):
+        
+        for i in range(a**3):
             if(count_children == a):
                 parent += 1
                 count_children = 0
-            d[i] = Node("f(\\frac{{n}}{{{}}})".format(
-                b**3), parent=d[parent])
+            d[total] = Node("f(n/{}) Node: {}".format(b**3, total), parent=d[parent])
+            total += 1
             count_children += 1
 
     for pre, fill, node in RenderTree(d[0]):

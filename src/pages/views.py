@@ -96,16 +96,13 @@ class Masters(TemplateView):
 
                 ans.append("\\text{{{}}}".format(soln))
                 ans.append("\\text{Please try again.}")
-                
                 tree_msg = "Tree could not be generated for invalid input."
 
             else:
                 T = "\\textbf{{Analysis of }} {}".format(soln[0])
                 ans.append(soln[1])
-                ans.append("= {}".format(soln[2]))
-                ans.append("\\text{{From this we deduce }} {} \\text{{, which then implies we have case }} {}".format(soln[3], soln[4]))
-                ans.append("\\therefore {}".format(soln[5]))
-                tree_msg = "As seen below, the recursion tree is {} in this case.".format(soln[6])                
+                ans.append("\\text{{From this we deduce }} {} \\text{{, which then implies we have case }} {}".format(soln[2], soln[3]))
+                tree_msg = "As seen below, the recursion tree is {} in this case.".format(soln[4])                
 
             args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg, 'height': height, 'a': a, 'b': b, 'k': k, 'i': i, 'passed': True}
 
