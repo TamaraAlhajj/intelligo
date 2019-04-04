@@ -4,21 +4,48 @@
 {% block content %}
 <div class="jumbotron">
     <h1 class="display-4 font-italic">Asymptotic Complexity</h1>
-    <p>The asymptotic analysis of a given function is a means of finding the bounds of said function.</p>
-    <p>As computer scientists, we are concerned with the complexity of a function because this tells us the runtime of
-        that function. So if you find your sorting algorithm runs in O(n) time, then you can say it grows linearly as
-        the input, n, grows.</p>
-    <p><em>But what does this mean?</em>$$O(n), \Omega(log(n)), \Omega(nlog(n)), \Theta(n^2)$$</p>
-    <p>If your tasked to find the <em>worst-case runtime</em> of an algorithm, what would you do?</p>
+    <p>
+        The asymptotic analysis of a given function is a means of finding the bounds of said function.
+        As computer scientists, we are concerned with the complexity of a function because computers solve computational
+        problems. By finding the complexities of our algorithms, we find the runtime of our programs.
+        <em>But what does this mean?</em>$$O(n), \Omega(log(n)), \Omega(nlog(n)), \Theta(n^2)$$
+        If your tasked to find the <em>worst-case runtime</em> of an algorithm, what would you do?
+        What about the <em>best-case</em>?
+    </p>
+    <p>
+        Not to worry!
+        Once the terminology is clear, so are the steps.
+    </p>
     <h3>Using Limits to Bound a Function</h3>
+    <p>
+        This method is quite simple. Given the function you are analyzing, f(n) we divide by some other function, g(n).
+        All we must find is the limit of this quotient as n approaches infinity. The beauty is we can choose any
+        function g(n), no pressure.
+        Preferably, we would choose g(n) to be as tight a bound as possible... but you can also pick right out of a hat.
+        Have a little fun with it.
+
+        $$\text{Given functions: } f(n) \text{ and } g(n)$$
+
+        $$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \rightarrow \textbf{ some answer we care about }$$
+
+        Why do we care about this answer? Espesically, if g(n) can be <em>anything</em>.
+        Well, based on the answer we find we can say something about the relationship between these two functions.
+    </p>
+    <p>
+        If the limit as n grows to infinity is 0, we know from our solid maths skills the numerator grows slower than
+        the denominator.<br>
+        Which implies we have found an upper bound to f(n). <br>
+        Similarly, if the limit as n grows to infinity is infinity. Then we know the numerator grows faster than the
+        denominator.<br>
+        Which implies we have found a lower bound to f(n).
+    </p>
 
     <p>
-        Once we find the complexities we are looking for we must then interpret this new found information.
         The following table shows details on all the notational terms common in the field asymptotic complexity.
     </p>
 
-    <table class="table" style="text-align:center;">
-        <h3>Summary of Complexity</h3>
+    <table class="table text-center table-light">
+        <h3>Summary of Asymptotic Notation</h3>
         <thead class="thead-dark">
             <th scope="col">Notation</th>
             <th scope="col">Name</th>
@@ -29,8 +56,9 @@
             <tr>
                 <th scope="row">$$f(n) \in o(g(n))$$</th>
                 <td>Little Oh</td>
-                <td>$$f < g \therefore \text{ g(n) is an upper bound}$$</td>
-                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} = 0$$</td>
+                <td>$$f < g \therefore \text{ g(n) is an upper bound}$$</td> <td>$$\lim_{n \rightarrow \infty}
+                        \frac{f(n)}{g(n)} = 0$$</td>
+            </tr>
             <tr>
                 <th scope="row">$$f(n) \in O(g(n))$$</th>
                 <td>Big Oh</td>
@@ -57,7 +85,12 @@
                 <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \in (0, \infty)$$</td>
             </tr>
         </tbody>
-        <tfoot>$$\text{Given functions: } f(n) \text{ and } g(n)$$ <em class="text-muted">Note: Round brackets indicate inclusive range, whereas square brackets indicate exclusive range.</em></tfoot>
+        <tfoot>
+            <em class="text-muted">
+                Note: Round brackets indicate inclusive range,
+                whereas square brackets indicate exclusive range.
+            </em>
+        </tfoot>
     </table>
 </div>
 <div class="container">
@@ -72,7 +105,7 @@
     <br>
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title">{{ f }}</h3>
+            <h3 class="card-header">{{ f }}</h3>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" style="font-size: 24px;">Solution $${{ g }}$$</li>
                 <li class="list-group-item" style="font-size: 24px;">

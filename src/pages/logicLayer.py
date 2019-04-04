@@ -27,7 +27,7 @@ def bigO(fn):
               'n*log(n)', 'n**2', 'n**3', '2**n', '3**n']
     math_bounds = [parse_expr(e) for e in bounds]
 
-    omega = 0
+    omega = -1
     theta = False
     for g in math_bounds:
         # check if f(n) is bounded by g(n) as n --> inf
@@ -42,7 +42,10 @@ def bigO(fn):
                 theta = True
                 omega = g
             else:
-                omega = bounds[omega]
+                if(omega == -1):
+                    omega = '1'
+                else:
+                    omega = latex(math_bounds[omega])
 
             soln.append(omega)
             soln.append(theta)
@@ -52,9 +55,9 @@ def bigO(fn):
 
     g = 'n!'
     soln.append(g)
-    soln.append(check)
+    soln.append('\\infty')
 
-    omega = bounds[omega]
+    omega = latex(math_bounds[omega])
     soln.append(omega)
     soln.append(theta)
 
@@ -100,7 +103,7 @@ def masters(a, b, k, i):
     else:
 
         # for pretty printing functions with latex in view
-        crit_latex = "= \log_{} {}".format(b, a)
+        crit_latex = "c_{{{critical}}} = \log_{} {}".format(b, a)
         fn = latex("n^{{{}}}log^{{{}}} n".format(k, i))
         T = latex("T(n) = {}T(n/{}) + \Theta({})".format(a, b, fn))
         

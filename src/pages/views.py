@@ -46,13 +46,12 @@ class BigO(TemplateView):
             lim.append("This is the worst case run-time.")
             
             if(const is not 0):
-                more.append("The best case run-time of this function can also be inferred from the limit we have just found!")
-                more.append("Since the limit as n grows to infinity is a constant greater than 0 we can say,")
+                more.append("Since the limit as n grows to infinity is greater than 0 we can also say,")
                 if(soln[4]):
                     more.append("$${} \\textbf{{ and }} f(n) = \\Omega({}) \\implies \\Theta({})$$".format(g, omega, g))
                     more.append("Thus we can say f(n) is tight bound by g(n), meaning the functions grow at approximately the same rate.")
                 else:
-                    more.append("$${} \\textbf{{and}} f(n) = \\Omega({})$$".format(g, omega))
+                    more.append("$${} \\textbf{{ and }} f(n) = \\Omega({})$$".format(g, omega))
                     more.append("This means that f(n) grows faster than g(n)")
             
             # init blank form
@@ -102,9 +101,6 @@ class Masters(TemplateView):
 
             else:
                 T = "\\textbf{{Analysis of }} {}".format(soln[0])
-                ans.append("c_{critical} = \\textit{the work to split/recombine vs subproblems}")
-                ans.append("= \\textit{log(# of subproblems)/log(relative problem size)}")
-                ans.append("= log(a)/log(b)")
                 ans.append(soln[1])
                 ans.append("= {}".format(soln[2]))
                 ans.append("\\text{{From this we deduce }} {} \\text{{, which then implies we have case }} {}".format(soln[3], soln[4]))
