@@ -17,38 +17,47 @@
         The following table shows details on all the notational terms common in the field asymptotic complexity.
     </p>
 
-    <table>
-        <thead>
-            <h3>Summary of Complexity</h3>
+    <table class="table" style="text-align:center;">
+        <h3>Summary of Complexity</h3>
+        <thead class="thead-dark">
+            <th scope="col">Notation</th>
+            <th scope="col">Name</th>
+            <th scope="col">Bound</th>
+            <th scope="col">Limit</th>
         </thead>
         <tbody>
             <tr>
-                <th>Notation</th>
-                <th>Name</th>
-                <th>Bound</th>
-                <th>Limit</th>
+                <th scope="row">$$f(n) \in o(g(n))$$</th>
+                <td>Little Oh</td>
+                <td>$$f < g \therefore \text{ g(n) is an upper bound}$$</td>
+                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} = 0$$</td>
+            <tr>
+                <th scope="row">$$f(n) \in O(g(n))$$</th>
+                <td>Big Oh</td>
+                <td>$$f \leq g \therefore \text{ g(n) is an upper bound}$$</td>
+                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \in [0, \infty)$$</td>
+            </tr>
             </tr>
             <tr>
-                <td>$$f(n) = o(g(n))$$</td>
-
+                <th scope="row">$$f(n) \in \omega(g(n))$$</th>
+                <td>Little Omega</td>
+                <td>$$f > g \therefore \text{ g(n) is an lower bound}$$</td>
+                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} = \infty$$</td>
             </tr>
             <tr>
-                <td>$$f(n) = O(g(n))$$</td>
-
+                <th scope="row">$$f(n) \in \Omega(g(n))$$</th>
+                <td>Big Omega</td>
+                <td>$$f \geq g \therefore \text{ g(n) is an upper bound}$$</td>
+                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \in (0, \infty]$$</td>
             </tr>
             <tr>
-                <td>$$f(n) = \omega(g(n))$$</td>
-
-            </tr>
-            <tr>
-                <td>$$f(n) = \Omega(g(n))$$</td>
-
-            </tr>
-            <tr>
-                <td>$$f(n) = \Theta(g(n))$$</td>
+                <th scope="row">$$f(n) \in \Theta(g(n))$$</th>
+                <td>Theta</td>
+                <td>$$f = g \therefore \text{ g(n) is an tight bound}$$</td>
+                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \in (0, \infty)$$</td>
             </tr>
         </tbody>
-        <tfoot >$$\text{Given functions: } f(n) \text{ and } g(n) $$</tfoot>
+        <tfoot>$$\text{Given functions: } f(n) \text{ and } g(n)$$ <em class="text-muted">Note: Round brackets indicate inclusive range, whereas square brackets indicate exclusive range.</em></tfoot>
     </table>
 </div>
 <div class="container">
@@ -90,7 +99,7 @@
             <li data-target="#carouselGraphIndicators" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-            <h5>Graphs for common runtime complexities</h5>
+            <h5>Graphs of number of operations versus input size for various function</h5>
             {% load static %}
             <div class="carousel-item active">
                 <img class="d-block w-100 h-100 rounded" src="{% static 'images/slowest.png'%}" alt="First slide">
