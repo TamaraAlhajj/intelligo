@@ -1,6 +1,12 @@
 from sympy import *
 from sympy.parsing.sympy_parser import parse_expr
 
+from anytree import Node, RenderTree
+from anytree.exporter import DotExporter
+from graphviz import Source, render
+
+import string
+
 
 def bigO(fn):
     """
@@ -21,7 +27,7 @@ def bigO(fn):
               'n*log(n)', 'n**2', 'n**3', '2**n', '3**n']
     math_bounds = [parse_expr(e) for e in bounds]
 
-    omega = -1
+    omega = 0
     theta = False
     for g in math_bounds:
         # check if f(n) is bounded by g(n) as n --> inf
@@ -34,12 +40,9 @@ def bigO(fn):
 
             if(check > 0):
                 theta = True
-            elif(check == 0):
                 omega = g
-            elif(omega is not -1):
-                omega = bounds[omega]
             else:
-                omega = '1'
+                omega = bounds[omega]
 
             soln.append(omega)
             soln.append(theta)
@@ -82,7 +85,7 @@ def masters(a, b, k, i):
     """ 
         INPUT: a >= 0, b > 1, k >= 0, i >= 0 
         \nOUTPUT: Master's Method Analysis of the form
-        \n      T(n) = aT(n/b) + Θ(n^k * (logn)^i)
+        \n      T(n) = aT(n/b) + Θ(n^k * log(n)^i)
     """
 
     n = symbols('n')
@@ -95,19 +98,22 @@ def masters(a, b, k, i):
         return msg
 
     else:
-        c_critical = log(a, b)
 
+        # for pretty printing functions with latex in view
         crit_latex = "= \log_{} {}".format(b, a)
-
-        fn = parse_expr("n**{} * log(n)**{}".format(k, i))
+        fn = latex("n^{{{}}}log^{{{}}} n".format(k, i))
         T = latex("T(n) = {}T(n/{}) + \Theta({})".format(a, b, fn))
+        
+        # for math operations
+        fn = parse_expr("n**{} * log(n)**{}".format(k, i))
+        c_critical = log(a, b)
 
         if(c_critical > k):
             case = 1
             explain = "c_{crit} > k"
             tree = "leaf-heavy"
-            msg = "T(n) = \Theta(n^{{\log_b a}}) = \Theta({})".format(
-                c_critical)
+            expr = latex("n^{{{}}}").format(crit_latex)
+            msg = "T(n) = \Theta(n^{{c_{{critical}}}}) = \Theta(n^{{\log_b a}}) = \Theta({})".format(expr)
 
         if(c_critical == k):
             case = 2
@@ -127,49 +133,85 @@ def masters(a, b, k, i):
             case = 3
             explain = "c_{crit} < k"
             tree = "root-heavy"
+            fn = latex("n^{{{}}}log^{{{}}} n".format(k, i))
 
             if(k == 1):
                 if(i == 0):
-                    msg = "T(n) = \Theta({{n}}) = \Theta({})".format(latex(fn))
+                    msg = "T(n) = \Theta({{n}}) = \Theta({})".format(fn)
                 elif(i == 1):
-                    msg = "T(n) = \Theta({{n log n }}) = \Theta({})".format(
-                        latex(fn))
+                    msg = "T(n) = \Theta({{n log n }}) = \Theta({})".format(fn)
                 else:
-                    msg = "T(n) = \Theta({{n log^{{i}}n }}) = \Theta({})".format(
-                        latex(fn))
+                    msg = "T(n) = \Theta({{n log^{{i}}n }}) = \Theta({})".format(fn)
             else:
                 if(i == 0):
-                    msg = "T(n) = \Theta({{n^{{k}}}}) = \Theta({})".format(
-                        latex(fn))
+                    msg = "T(n) = \Theta({{n^{{k}}}}) = \Theta({})".format(fn)
                 elif(i == 1):
-                    msg = "T(n) = \Theta({{n^{{k}} log n }}) = \Theta({})".format(
-                        latex(fn))
+                    msg = "T(n) = \Theta({{n^{{k}} log n }}) = \Theta({})".format(fn)
                 else:
-                    msg = "T(n) = \Theta({{n^{{k}} log^{{i}}n }}) = \Theta({})".format(
-                        latex(fn))
+                    msg = "T(n) = \Theta({{n^{{k}} log^{{i}}n }}) = \Theta({})".format(fn)
 
         return (T, crit_latex, c_critical, explain, case, latex(msg), tree)
 
 
-def generate_nodes(a, b, k, i):
+def generate_tree(a, b, k, i):
 
-    level2 = list()
-    level3 = list()
-    level4 = list()  # pseudo-leaves
+    d = dict()
 
     if(masters_invalid(a, b, k, i)[0]):
         height = "\\log_{b} n"
-        level2.append("\\frac{{n}}{{a}}")
-        level3.append("\\frac{{n}}{{a**2}}")
-        level4.append("\\frac{{n}}{{a**3}} \\newline")
+        d[0] = Node("f(n)")
+
+        parent = 0
+        for i in range(1, a+1):
+            d[i] = Node("f(\\frac{{n}}{{b}})", parent=parent)
+
+        parent += 1
+        count_children = 0
+        for i in range(a+1, a**2 + 1):
+            if(count_children == a):
+                parent += 1
+                count_children = 0
+            d[i] = Node("f(\\frac{{n}}{{b**2}})", parent=parent)
+            count_children += 1
+
+        for i in range(1, a**3 + 1):
+            if(count_children == a):
+                parent += 1
+                count_children = 0
+            d[i] = Node("f(\\frac{{n}}{{b**3}})")
+            count_children += 1
+
     else:
         height = "\\log_{{{}}} n".format(b)
+        d[0] = Node("f({})".format(b))
 
-        for i in range(1, a+1):
-            level2.append("\\frac{{n}}{{{}}}".format(a))
-        for i in range(1, a**2 + 1):
-            level3.append("\\frac{{n}}{{{}}}".format(a**2))
-        for i in range(1, a**3 + 1):
-            level4.append("\\frac{{n}}{{{}}} \\newline...".format(a**3))
-    
-    return (height, level2, level3, level4)
+        parent = 0
+        for i in range(1, a + 1):
+            d[i] = Node("f(\\frac{{n}}{{{}}})".format(b), parent=d[0])
+
+        parent += 1
+        count_children = 0
+        for i in range(a + 1, a**2 + 1):
+            if(count_children == a):
+                print(parent)
+                parent += 1
+                count_children = 0
+            d[i] = Node("f(\\frac{{n}}{{{}}})".format(b**2), parent=d[parent])
+            count_children += 1
+
+        parent += 1
+        count_children = 0
+        for i in range(a**2 + 1, a**3):
+            if(count_children == a):
+                parent += 1
+                count_children = 0
+            d[i] = Node("f(\\frac{{n}}{{{}}})".format(
+                b**3), parent=d[parent])
+            count_children += 1
+
+    for pre, fill, node in RenderTree(d[0]):
+        print("%s%s" % (pre, node.name))
+
+    DotExporter(d[0]).to_picture("./pages/static/images/tree.png")
+
+    return (height)

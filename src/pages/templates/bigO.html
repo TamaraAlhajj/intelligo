@@ -3,9 +3,53 @@
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4 font-italic">Computational Complexity</h1>
-    <p>Asymptotic analysis using Big-O notation.</p>
-    <p>Detailed explanation here</p>
+    <h1 class="display-4 font-italic">Asymptotic Complexity</h1>
+    <p>The asymptotic analysis of a given function is a means of finding the bounds of said function.</p>
+    <p>As computer scientists, we are concerned with the complexity of a function because this tells us the runtime of
+        that function. So if you find your sorting algorithm runs in O(n) time, then you can say it grows linearly as
+        the input, n, grows.</p>
+    <p><em>But what does this mean?</em>$$O(n), \Omega(log(n)), \Omega(nlog(n)), \Theta(n^2)$$</p>
+    <p>If your tasked to find the <em>worst-case runtime</em> of an algorithm, what would you do?</p>
+    <h3>Using Limits to Bound a Function</h3>
+
+    <p>
+        Once we find the complexities we are looking for we must then interpret this new found information.
+        The following table shows details on all the notational terms common in the field asymptotic complexity.
+    </p>
+
+    <table>
+        <thead>
+            <h3>Summary of Complexity</h3>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Notation</th>
+                <th>Name</th>
+                <th>Bound</th>
+                <th>Limit</th>
+            </tr>
+            <tr>
+                <td>$$f(n) = o(g(n))$$</td>
+
+            </tr>
+            <tr>
+                <td>$$f(n) = O(g(n))$$</td>
+
+            </tr>
+            <tr>
+                <td>$$f(n) = \omega(g(n))$$</td>
+
+            </tr>
+            <tr>
+                <td>$$f(n) = \Omega(g(n))$$</td>
+
+            </tr>
+            <tr>
+                <td>$$f(n) = \Theta(g(n))$$</td>
+            </tr>
+        </tbody>
+        <tfoot >$$\text{Given functions: } f(n) \text{ and } g(n) $$</tfoot>
+    </table>
 </div>
 <div class="container">
     <div class="row">
@@ -17,7 +61,6 @@
         </form>
     </div>
     <br>
-
     <div class="card">
         <div class="card-body">
             <h3 class="card-title">{{ f }}</h3>

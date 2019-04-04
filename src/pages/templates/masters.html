@@ -11,8 +11,9 @@
 <div class="container">
     <div class="row">
         <form class="form-group col-sm" method="post">
-            <label for="id_post">Input for Equation of the form $$ T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n))
-                $$</label>
+            <label for="id_post">
+                Input for Equation of the form $$ T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n))$$
+            </label>
             <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-lg">a</span>
@@ -61,34 +62,8 @@
                 $${{ height }}$$
             </div>
             <div class="card-body">
-                <!-- For recursion tree dynamic generation -->
-                <link href="https://unpkg.com/treeflex/dist/css/treeflex.css" rel="stylesheet">
-                <div class="tf-tree masters">
-                    <ul>
-                        <li>
-                            <span class="tf-nc">{{ a }}</span>
-                            {% for nodes2 in level2 %}
-                            <ul>
-                                <li>
-                                    <span class="tf-nc">$${{ nodes2 }}$$</span>
-                                    {% for nodes3 in level3 %}
-                                    <ul>
-                                        <li>
-                                            <span class="tf-nc">$${{ nodes3 }}$$</span>
-                                            {% for leaf in leaves %}
-                                            <ul>
-                                                <li><span class="tf-nc">$${{ leaf }}$$</span></li>
-                                            </ul>
-                                            {% endfor %}
-                                        </li>
-                                    </ul>
-                                    {% endfor %}
-                                </li>
-                            </ul>
-                            {% endfor %}
-                        </li>
-                    </ul>
-                </div>
+                {% load static %}
+                <img src="{% static '../static/images/tree.png' %}">
             </div>
         </div>
         <div class="card-footer">

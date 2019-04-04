@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from pages.forms import ComplexityForm, MastersForm
 from pages.models import ComplexityPost, MastersPost
 from django.shortcuts import render, redirect
-from pages.logicLayer import bigO, masters, generate_nodes
+from pages.logicLayer import bigO, masters, generate_tree
 
 
 class Home(TemplateView):
@@ -39,10 +39,6 @@ class BigO(TemplateView):
             g = "f(n) = O({}) ".format(soln[1])
             const = soln[2]
             omega = soln[3]
-
-            if(soln[1] == 1):
-                lim.append("The function {} is not dependent on n. Thus, The run time is constant.".format(soln[0]))
-                lim.append("Thus we can also say it is tight bound, meaning $$f(n) = \\Theta(1)$$")
             
             lim.append("Using limits we can deduce the bounds, and thus the run-time, of the function.")
             lim.append("$$ \lim_{{n \\to +\infty}} \\frac{{{}}}{{{}}} = {}$$".format(soln[0], soln[1], const))
@@ -92,12 +88,9 @@ class Masters(TemplateView):
             soln = masters(a, b, k, i)
             ans = list()
 
-            # create tree
-            tree = generate_nodes(a, b, k, i)
-            height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(tree[0])
-            nodes2 = tree[1]
-            nodes3 = tree[2]
-            leaves = tree[3]
+            # create tree and function will return respective height
+            tree = generate_tree(a, b, k, i)
+            height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(tree)
 
             if (type(soln) == str):
                 T = "\\textbf{Invalid Input}"
@@ -109,7 +102,7 @@ class Masters(TemplateView):
 
             else:
                 T = "\\textbf{{Analysis of }} {}".format(soln[0])
-                ans.append("c_{crit} = \\textit{the work to split/recombine vs subproblems}")
+                ans.append("c_{critical} = \\textit{the work to split/recombine vs subproblems}")
                 ans.append("= \\textit{log(# of subproblems)/log(relative problem size)}")
                 ans.append("= log(a)/log(b)")
                 ans.append(soln[1])
@@ -118,7 +111,7 @@ class Masters(TemplateView):
                 ans.append("\\therefore {}".format(soln[5]))
                 tree_msg = "As seen below, the recursion tree is {} in this case.".format(soln[6])                
 
-            args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg, 'nodes2': nodes2, 'nodes3': nodes3, 'leaves': leaves, 'height': height, 'a': a, 'b': b, 'k': k, 'i': i}
+            args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg, 'height': height, 'a': a, 'b': b, 'k': k, 'i': i, 'passed': True}
 
             # init blank form
             form = MastersForm()
