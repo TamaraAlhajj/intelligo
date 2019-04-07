@@ -49,17 +49,17 @@
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <td>$$f(n) = O(n^c) \textit{ such that } c < c_{critical}$$</td> 
-                    <td>$$T(n) = \Theta(n^{c_{critical}})$$</td>
+                    <td>$$f(n) = O(n^c) \textit{ such that } c < c_{critical}$$</td> <td>$$T(n) =
+                            \Theta(n^{c_{critical}})$$</td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
-                    <td>$$f(n) = \Theta(n^c_{critical} log^{i} n)$$</td> 
+                    <td>$$f(n) = \Theta(n^c_{critical} log^{i} n)$$</td>
                     <td>$$T(n) = \Theta(n^c_{critical} log^{i+1} n)$$</td>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td>$$ f(n) = \Omega(n^c) \textit{ such that } c > c_{critical}$$</td> 
+                    <td>$$ f(n) = \Omega(n^c) \textit{ such that } c > c_{critical}$$</td>
                     <td>$$T(n) = \Theta(f(n))$$</td>
                 </tr>
             </tbody>
@@ -123,20 +123,25 @@
             </div>
         </div>
     </div>
-    <div class="container mt-4">
-        <div class="card text-center">
-            <div class="card-header text-muted">
-                $${{ height }}$$
-            </div>
-            <div class="card-body">
-                {% load static %}
-                <img src="{% static '../static/images/tree.png' %}" width="100%" height="100%">
-            </div>
+</div>
+<div class="container mt-4">
+    <div class="card text-center">
+        {% load static %}
+        <div class="card-header text-muted">
+            <a href="{% static '../static/images/tree.png' %}" target="_blank">
+                Click Here to see tree in full window view.
+            </a>
         </div>
-        <div class="card-footer">
-            <blockquote>Recursion Tree</blockquote>
+        <div class="thumbnail">
+            <img src="{% static '../static/images/tree.png' %}" alt="Recursion Tree" style="width:100%">
+            <div class="card-body caption">
+                <p>$${{ tree_msg }}$$</p>
+                <p>$${{ height }}$$</p>
+            </div>
+            </a>
         </div>
     </div>
 </div>
+
 
 {% endblock %}

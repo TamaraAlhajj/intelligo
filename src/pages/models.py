@@ -11,5 +11,5 @@ class MastersPost(models.Model):
     post_b = models.CharField(max_length=5)
     post_k = models.CharField(max_length=5)
     post_i = models.CharField(max_length=5, default=0)
-
     date = models.DateTimeField(auto_now_add=True)
+    #image = models.ImageField(upload_to='images/tree.png', blank=True, null=True)
