@@ -4,19 +4,10 @@
 
 _A web app to aid in understanding of asymptotic complexity theory, for my undergraduate honours project._
 
-## Install Anaconda 
+## Install Anaconda
 
-From the working directory of this project run,
-
-`bash Anaconda3-2019.x-Linux-x86[_64].sh`
-
-When installing anaconda scroll to the bottom of the license terms and enter `yes` to agree.
-
-Then accept the default install location by clicking Enter.
-
-Once the installer prompts to prepend the Anaconda install location to PATH .bashrc, enter `yes`
-
-When the installation completes type `source ~/.bashrc`, and verify by typeing `anaconda-navigator`
+To get the Anaconda 2019.03 for installer go to `https://www.anaconda.com/distribution/` and click on the installer for your OS.
+Then [follow the instructions](https://docs.anaconda.com/anaconda/install/), for the OS you have chosen.
 
 ## Requirements
 
