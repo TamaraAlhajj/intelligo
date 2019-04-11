@@ -6,7 +6,18 @@ _A web app to aid in understanding of asymptotic complexity theory, for my under
 
 To install requirements run,
 
-`pip install -r requirements.txt`
+```bash
+pip3 install Django anytree
+bash Anaconda3-2019.x-Linux-x86[_64].sh
+conda install -c anaconda graphviz python-graphviz
+```
+When installing anaconda scroll to the bottom of the license terms and enter `yes` to agree.
+
+Then accept the default install location by clicking Enter.
+
+Once the installer prompts to prepend the Anaconda install location to PATH .bashrc, enter `yes`
+
+When the installation completes type `source ~/.bashrc`, and verify by typeing `anaconda-navigator`
 
 Then to launch site,
 
