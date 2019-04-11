@@ -24,7 +24,7 @@ To install requirements run,
 
 ```bash
 pip3 install Django anytree
-conda install -c anaconda graphviz python-graphviz numpy
+conda install -c anaconda graphviz python-graphviz numpy sympy
 ```
 
 ## Run
@@ -39,5 +39,5 @@ Then to launch the site,
 - Django Python Web framework for Model and View
 - Bootstrap for frontend (UI layer)
 - `graphviz` python library for recussion tree visualization
-- `numpy` for computing calculus
+- `numpy` and `sympy` for computing calculus
 - Tested in Brave and Chrome browsers
