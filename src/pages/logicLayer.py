@@ -3,7 +3,8 @@ from sympy.parsing.sympy_parser import parse_expr
 
 from anytree import Node, RenderTree
 from anytree.exporter import DotExporter
-from graphviz import Source, render
+# To be used if DotExporter is not functional
+#from graphviz import Source, render
 
 import string
 
@@ -85,11 +86,11 @@ def masters_invalid(a, b, k, i):
             msg += "i must be at least 0, "
         else:
             return (False, "Valid input")
-        # error has occured
+        # error has occurred
         return (True, msg)
 
     except:
-        # error has occured
+        # error has occurred
         msg = "Invalid Input. Please try again."
         return (True, msg)
 

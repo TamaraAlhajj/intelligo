@@ -109,7 +109,7 @@ class Masters(TemplateView):
                     T = "\\textbf{{Analysis of the recurrence }} {}".format(soln[0])
                     ans.append(soln[1])
                     ans.append("\\text{{From this we deduce }} {} \\text{{, which then implies we have case }} {}".format(soln[2], soln[3]))
-                    ans.append("\\textbf{{ \\therefore the solution is }} {}".format(soln[4]))
+                    ans.append("\\textbf{{Solution: }} {}".format(soln[4]))
                     tree_msg = "\\text{This is the first 3 levels of the recursion tree for } f(n)." 
                     height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(height)   
 
@@ -120,7 +120,7 @@ class Masters(TemplateView):
                 T = "\\textbf{Invalid Input}"
                 ans = ["\\text{Please try again.}"]
                 tree_msg = "\\text{This is an } \\textbf{example } \\text{tree which shows the first 3 levels of the recursion tree for } a=2."
-                height = generate_tree(2, 1, 1, 1) ## trigger example from bad input for tree gen
+                height = generate_tree(2, 2, 1, 1) ## trigger example from bad input for tree gen
                 height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(height)           
 
                 args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg, 'height': height}        
