@@ -29,6 +29,6 @@ Then to launch the site,
 - Python3.7 for mathematics backend-logic layer
 - Django Python Web framework for Model and View
 - Bootstrap for frontend (UI layer)
-- `graphviz` python library for recussion tree visualization
+- `graphviz` python library for recursion tree visualization
 - `numpy` and `sympy` for computing calculus
 - Tested in Brave and Chrome browsers
