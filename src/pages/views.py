@@ -19,8 +19,6 @@ class BigO(TemplateView):
 
     def get(self, request):
         form = ComplexityForm()
-        #post = ComplexityPost.objects.all().order_by('-date')[0]
-
         args = {'form': form}
         return render(request, self.template_name, args)
 
@@ -33,23 +31,23 @@ class BigO(TemplateView):
 
             # run maths
             soln = bigO(text)
-            lim = list()
+            limit_msg = list()
             more = list()
 
             if(type(soln) == str):
                 f = soln
                 g = "\\text{Make sure you are using python syntax for math expressions.}"
-                lim = ["Please try again."]
+                limit_msg = ["Please try again."]
             else:
                 f = "$$\\text{{Analysis of }} f(n) = {}$$".format(soln[0])
                 g = "f(n) = O({}) ".format(soln[1])
                 const = soln[2]
                 omega = soln[3]
                 
-                lim.append("Using limits we can deduce the bounds, and thus the run-time, of the function.")
-                lim.append("$$ \lim_{{n \\to +\infty}} \\frac{{{}}}{{{}}} = {}$$".format(soln[0], soln[1], const))
-                lim.append("Thus, this function has a upper bound of, $${}$$.".format(g))
-                lim.append("This is the worst case run-time.")
+                limit_msg.append("Using limits we can deduce the bounds, and thus the run-time, of the function.")
+                limit_msg.append("$$ \lim_{{n \\to +\infty}} \\frac{{{}}}{{{}}} = {}$$".format(soln[0], soln[1], const))
+                limit_msg.append("Thus, this function has a upper bound of, $${}$$.".format(g))
+                limit_msg.append("This is the worst case run-time.")
                 
                 if(const is not 0):
                     more.append("Since the limit as n grows to infinity is greater than 0 we can also say,")
@@ -63,7 +61,7 @@ class BigO(TemplateView):
             # init blank form
             form = ComplexityForm()
 
-        args = {'form': form, 'f': f, 'g': g, 'lim': lim, 'more': more}
+        args = {'form': form, 'f': f, 'g': g, 'lim': limit_msg, 'more': more}
         return render(request, self.template_name, args)
 
 

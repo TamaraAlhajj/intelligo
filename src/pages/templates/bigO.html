@@ -2,7 +2,7 @@
 
 
 {% block content %}
-<div class="jumbotron">
+<div class="container">
     <h1 class="display-4 font-italic">Asymptotic Complexity</h1>
     <p>
         The asymptotic analysis of a given function is a means of finding the bounds of said function.
@@ -44,7 +44,7 @@
         The following table shows details on all the notational terms common in the field asymptotic complexity.
     </p>
 
-    <table class="table text-center table-light">
+    <table class="table text-center table-striped">
         <h3>Summary of Asymptotic Notation</h3>
         <thead class="thead-dark">
             <th scope="col">Notation</th>
@@ -93,7 +93,13 @@
         </tfoot>
     </table>
 </div>
-<div class="container">
+<br>
+<hr>
+<div class="container mt-5" id="#analysis">
+    <div class="text-center">
+        <h1 class="display-4 p-3 mb-2 bg-primary text-white">Analysis Tool</h1>
+        <p class="lead font-italic text-muted">Try it yourself! Enter an equation, then run the asymptotic analysis.</p>
+    </div>
     <div class="row">
         <form class="form-group col-sm" method="post">
             <label for="id_post" style="font-size: 24px;">$$f(n) = $$</label>

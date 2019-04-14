@@ -26,7 +26,7 @@ Then to launch the site,
 
 ## Development
 
-- Python3.7 for mathematics backend-logic layer
+- Python3 for mathematics backend-logic layer
 - Django Python Web framework for Model and View
 - Bootstrap for frontend (UI layer)
 - `graphviz` python library for recursion tree visualization

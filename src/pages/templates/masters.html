@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="jumbotron">
+<div class="container">
     <h1 class="display-4 font-italic">Master's Method</h1>
     <p>
         The Master's Method, also known as the Master's Theorem, is a simple way to solve recurrences of the following
@@ -35,8 +35,7 @@
         <li class="list-group-item list-group-item">Must have polynomial difference between, $$f(n) \text{ and }
             n^{\log _{b} a}$$</li>
     </ul>
-    <hr>
-    <p>
+    <p class="mt-5">
         If each of these criteria is met, you may then solve your recurrence with the Master's Method!
         I know, exciting stuff. So what is this method, you ask?
         The following table is a summary of what the theorem states,
@@ -65,20 +64,21 @@
             </tbody>
         </table>
     </p>
+</div>
+<br>
+<hr>
+<div class="container">
 
-    <br>
-    <p>
+    <h1 class="display-4 p-3 mb-2 bg-primary text-white text-center">Analysis Tool</h1>
+    <p class="font-weight-light">
         This a tool to provide asymptotic analysis for divide-and-conquer recurrences, with the use of <a
             href="{% url 'bigO' %}">big-O notaion</a>.
-        Just follow the rules listed above and enter your desired values for a, b, k, and i.
+        Just follow the rules stated above and enter your desired values for a, b, k, & i.
         The solution will be generated along with the recursion tree.
     </p>
-
-</div>
-<div class="container-fluid">
     <div class="row text-center">
         <form class="form-group col-12" method="post">
-            <label for="id_post">
+            <label for="id_post" class="lead">
                 Input for Equation of the form, $$ T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n))$$
             </label>
             <div class="input-group input-group-lg">
