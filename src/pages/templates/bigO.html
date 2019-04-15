@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
+
+{% load static %}
+
 <div class="container">
-    <h1 class="display-4 font-italic">Asymptotic Complexity</h1>
+    <h1 class="display-4 font-italic">Simplifying Complexity</h1>
     <p>
         The asymptotic analysis of a given function is a means of finding the bounds of said function.
         As computer scientists, we are concerned with the complexity of a function because computers solve computational
@@ -105,15 +107,16 @@
             <label for="id_post" style="font-size: 24px;">$$f(n) = $$</label>
             {% csrf_token %}
             {{ form.post }}
+            {{ form.guess }}
             <button type="submit" class="btn btn-outline-primary container-fluid btn-lg mt-4">Run Analysis</button>
         </form>
     </div>
     <br>
     <div class="card">
         <div class="card-body">
-            <h3 class="card-header">{{ f }}</h3>
+            <h3 class="card-header">{{ title }}</h3>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" style="font-size: 24px;">Solution $${{ g }}$$</li>
+                <li class="list-group-item" style="font-size: 24px;">Solution $${{ answer }}$$</li>
                 <li class="list-group-item" style="font-size: 24px;">
                     {% for line in lim %}
                     {{ line }}
@@ -139,7 +142,6 @@
         </ol>
         <div class="carousel-inner">
             <h5>Graphs of number of operations versus input size for various function</h5>
-            {% load static %}
             <div class="carousel-item active">
                 <img class="d-block w-100 h-100 rounded" src="{% static 'images/slowest.png'%}" alt="First slide">
             </div>

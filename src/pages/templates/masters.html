@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
+{% load static %}
+
 <div class="container">
-    <h1 class="display-4 font-italic">Master's Method</h1>
+    <h1 class="display-4 font-italic">Mastering Master's</h1>
     <p>
         The Master's Method, also known as the Master's Theorem, is a simple way to solve recurrences of the following
         form,
@@ -36,8 +37,8 @@
             n^{\log _{b} a}$$</li>
     </ul>
     <p class="mt-5">
-        If each of these criteria is met, you may then solve your recurrence with the Master's Method!
-        I know, exciting stuff. So what is this method, you ask?
+        If each of these criteria is met, you may then solve your recurrence with the Master's Method! 
+        So what is this method, you ask?
         The following table is a summary of what the theorem states,
         <table class="table text-center table-light">
             <thead class="thead-dark">
@@ -126,14 +127,13 @@
 </div>
 <div class="container mt-4">
     <div class="card text-center">
-        {% load static %}
         <div class="card-header text-muted">
-            <a href="{% static '../static/images/tree.png' %}" target="_blank">
+            <a href="{% static '/../static/images/tree.png' %}" target="_blank">
                 Click Here to see tree in full window view.
             </a>
         </div>
         <div class="thumbnail">
-            <img src="{% static '../static/images/tree.png' %}" alt="Recursion Tree will be generated with input" style="width:100%">
+            <img src="{% static '/../static/images/tree.png' %}" alt="Recursion Tree will be generated with input" style="width:100%">
             <div class="card-body caption">
                 <p>$${{ tree_msg }}$$</p>
                 <p>$${{ height }}$$</p>

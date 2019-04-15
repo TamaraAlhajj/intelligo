@@ -12,18 +12,21 @@
     </p>
     <a class="btn btn-primary" href="https://forms.gle/D8GoWAofKnFEnPRn6" target="_blank">Take Survey</a>
 </div>
+<hr>
+<br>
 <div class="container mt-5">
-    <h5>Python Math Expressions</h5>
+    <h1 class="display-5">Python Math Expressions</h1>
     <p>
         The <a href="{% url 'bigO' %}">asymptotic complexity page</a> requires input with python math expression.
         The following is a summary of how to input in this way.
     </p>
     <ul class="list-group">
-        <li class="list-group-item list-group-item-info">Powers: $$n^i \longrightarrow n**i$$</li>
-        <li class="list-group-item list-group-item-info">Multiplication: $$nc \longrightarrow n*i$$</li>
-        <li class="list-group-item list-group-item-info">Division: $$\frac{n}{c} \longrightarrow n/c$$</li>
-        <li class="list-group-item list-group-item-info">Logarithms: $$logn \longrightarrow log(n)$$</li>
-        <li class="list-group-item list-group-item-info">Addition & subtraction is the same: $$n + a -b \longrightarrow n + a - b$$</li>
+        <li class="list-group-item list-group-item-warning"><strong class="lead">Powers:</strong>$$n^i \longrightarrow n**i$$</li>
+        <li class="list-group-item list-group-item-warning"><strong class="lead">Multiplication:</strong>$$nc \longrightarrow n*i$$</li>
+        <li class="list-group-item list-group-item-warning"><strong class="lead">Division:</strong>$$\frac{n}{c} \longrightarrow n/c$$</li>
+        <li class="list-group-item list-group-item-warning"><strong class="lead">Logarithms:</strong>$$logn \longrightarrow log(n)$$</li>
+        <li class="list-group-item list-group-item-warning"><strong class="lead">Addition & Subtraction:</strong>$$n + a - b \longrightarrow n + a - b$$</li>
     </ul>
 </div>
+<br>
 {% endblock %}

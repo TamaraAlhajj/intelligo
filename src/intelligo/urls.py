@@ -27,5 +27,4 @@ urlpatterns = [
     url(r'^masters/$', Masters.as_view(), name='masters'),
     url(r'^bigO/$', BigO.as_view(), name='bigO'),
     url(r'^info/$', Info.as_view(), name='info')
-
 ]

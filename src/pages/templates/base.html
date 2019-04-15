@@ -11,8 +11,8 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'pages/styles.css'%}" type="text/css">
-    <link rel="shortcut icon" href="{% static 'pages/favicon.ico' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'styles.css'%}" type="text/css">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/png">
 
     <!-- for loading LaTeX -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
@@ -23,34 +23,32 @@
 
 <body>
 
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="mb-5">
-            <div class="jumbotron inner">
-                <div class="container">
-                    <h3 class="d-inline-block display-4">Intelligo</h3>
-                    <p class="text-muted"><em>In development</em></p>
-                </div>
-
+    <header class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <div class="jumbotron">
+            <div class="container">
+                <h3 class="d-inline-block display-4">Intelligo</h3>
+                <hr>
                 <nav class="nav justify-content-center lead">
                     <a class="nav-link active" href="/#">Home</a>
                     <a class="nav-link" href="{% url 'bigO' %}">Asymptotic Complexity</a>
                     <a class="nav-link" href="{% url 'masters' %}">Master's Method</a>
                     <a class="nav-link" href="{% url 'info' %}">Info</a>
                 </nav>
+                <hr>
             </div>
-        </header>
+    </header>
 
-        <div class="container text-justify">
-            {% block content %}
-            replace me
-            {% endblock %}
+    <div class="container text-justify">
+        {% block content %}
+        replace me
+        {% endblock %}
+    </div>
+
+    <footer class="page-footer font-small blue pt-4">
+        <div class="container text-center">
+            <span class="text-muted"> © 2019 Copyright | Tamara Alhajj | Honours Project</span>
         </div>
-
-        <footer class="page-footer font-small blue pt-4">
-            <div class="container text-center">
-                <span class="text-muted"> © 2019 Copyright | Tamara Alhajj | Honours Project</span>
-            </div>
-        </footer>
+    </footer>
     </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -9,60 +9,69 @@ from anytree.exporter import DotExporter
 import string
 
 
-def bigO(fn):
+def bigO(fn, guess=None):
     """
         INPUT: f(n) \n
         OUTPUT: O(g(n)) such that f(n) is bounded by g(n)
     """
 
-    soln = []
-
+    solution = dict()
     n = symbols('n')
 
     try:
         # turn input into math expression
         f = parse_expr(fn)
-        soln.append(latex(f))
+        solution["f(n)"] = latex(f)
+        solution["guess"] = None
 
-        # otherwise check common bounds
+        # if user has made a guess, check it first
+        if(guess != None):
+            guess = parse_expr(guess)
+            # check if f(n) is bounded by g(n) as n --> inf
+            check = Limit(f/guess, n, oo).doit()
+
+            if (check.is_constant() and (check != oo)):
+                solution["guess"] = latex(guess)
+            else:
+                solution["guess"] = False
+
+        # now run analysis on common bounds
         bounds = ['1', 'log(log(n))', 'log(n)', 'log(n)**2', 'sqrt(n)', 'sqrt(n) * log(n)', 'n / log(n)', 'n', 'n*log(log(n))',
-                'n*log(n)', 'n * log(n)**2', 'n**2', 'n**2 * log(n)', 'n**3', 'n**4', '2**n', '3**n']
+                  'n*log(n)', 'n * log(n)**2', 'n**2', 'n**2 * log(n)', 'n**3', 'n**4', '2**n', '3**n']
         math_bounds = [parse_expr(e) for e in bounds]
 
-        omega = -1
-        theta = False
+        omega_index = -1
+
+        # set theta to false unless proven otherwise
+        solution["theta"] = False
+
         for g in math_bounds:
             # check if f(n) is bounded by g(n) as n --> inf
             check = Limit(f/g, n, oo).doit()
 
             if (check.is_constant() and (check != oo)):
-                g = latex(g)
-                soln.append(g)
-                soln.append(check)
+                solution["g(n)"] = latex(g)
+                solution["constant"] = check
 
                 if(check > 0):
-                    theta = True
-                    omega = g
+                    # then by definition f(n) = Theta(g(n))
+                    solution["theta"] = True
+                    solution["omega"] = g
                 else:
-                    if(omega == -1):
-                        omega = '1'
+                    if(omega_index == -1):
+                        solution["omega"] = '1'
                     else:
-                        omega = latex(math_bounds[omega])
+                        solution["omega"] = latex(math_bounds[omega_index])
 
-                soln.append(omega)
-                soln.append(theta)
-                return (soln)
+                return (solution)
 
-            omega += 1
+            omega_index += 1
 
-        g = 'n!'
-        soln.append(g)
-        soln.append('\\infty')
+        solution["g(n)"] = 'n!'
+        solution["constant"] = '\\infty'
+        solution["omega"] = latex(math_bounds[omega])
 
-        omega = latex(math_bounds[omega])
-        soln.append(omega)
-        soln.append(theta)
-        return (soln)
+        return (solution)
 
     except:
         err_msg = "Error has Occurred"
@@ -74,24 +83,26 @@ def masters_invalid(a, b, k, i):
         INPUT: Master's Arguments
         \nOUTPUT: tuple of True, and error msg if invalid
     """
+
     try:
-        msg = "According to the Masters Theorem "
-        if(a <= 0 or None):
-            msg += "a must be a positive number, "
-        elif(b <= 1 or None):
-            msg += " b must be greater than 1, "
-        elif(k < 0 or None):
-            msg += "k must be at least 0, "
-        elif(i < 0 or None):
-            msg += "i must be at least 0, "
-        else:
-            return (False, "Valid input")
-        # error has occurred
+        msg = list()
+        if(a <= 0):
+            msg.append("a must be a positive number, ")
+        if(b <= 1):
+            msg.append("b must be greater than 1, ")
+        if(k < 0):
+            msg.append("k must be at least 0, ")
+        if(i < 0):
+            msg.append("i must be at least 0, ")
+        
+        if(len(msg) == 0):
+            return(False, "Valid Input")
+
         return (True, msg)
 
     except:
-        # error has occurred
-        msg = "Invalid Input. Please try again."
+
+        msg = "Invalid Syntax. Please try again."
         return (True, msg)
 
 
@@ -104,30 +115,30 @@ def masters(a, b, k, i):
 
     n = symbols('n')
 
-    valid = masters_invalid(a, b, k, i)
+    invalid_input = masters_invalid(a, b, k, i)
 
-    if(valid[0]):
-
-        msg = valid[1]
+    if(invalid_input[0]):
+        msg = invalid_input[1]
         return msg
-
     else:
-
         # for math operations
         fn = parse_expr("n**{} * log(n)**{}".format(k, i))
         c_critical = log(a, b)
         c_eval = N(c_critical, 3)
 
         # for pretty printing functions with latex in view
-        c_latex = "c_{{critical}} = \log_{} {} = {} = {}".format(b, a, c_critical, c_eval)
-        
+        if(float(c_critical) == c_eval):
+            c_latex = "c_{{critical}} = \log_{} {} = {}".format(b, a, c_critical)
+        else:
+            c_latex = "c_{{critical}} = \log_{} {} = {} = {}".format(b, a, c_critical, c_eval)
+
         if(k == 0):
             f = ""
         elif(k == 1):
             f = "n"
         else:
-            f = "n^{{{}}}".format(k)        
-        
+            f = "n^{{{}}}".format(k)
+
         if(i == 0):
             pass
         elif(i == 1):
@@ -135,24 +146,28 @@ def masters(a, b, k, i):
         else:
             f += "log^{{{}}} n".format(i)
 
+        # check for empty string output
+        if(f == ""):
+            f = "1"
+
         f = latex(f)
 
         T = "T(n) = "
         if(a == 1):
-            T = latex("T(n) = T(n/{}) + \Theta({})".format(b, f)) 
+            T = latex("T(n) = T(n/{}) + \Theta({})".format(b, f))
         else:
             T = latex("T(n) = {}T(n/{}) + \Theta({})".format(a, b, f))
-        
 
         if(c_critical > k):
             case = 1
-            explain = "c_{crit} > k"
+            case_msg = "c_{crit} > k"
+            
             expr = latex("n^{{{}}}").format(c_eval)
             msg = "T(n) = \Theta(n^{{c_{{critical}}}}) = \Theta(n^{{\log_b a}}) = \Theta({})".format(expr)
 
         if(c_critical == k):
             case = 2
-            explain = "c_{crit} == k"
+            case_msg = "c_{crit} == k"
 
             if(c_critical == 0):
                 expr = latex("log^{{{}}} n".format(i+1))
@@ -165,7 +180,7 @@ def masters(a, b, k, i):
 
         if(c_critical < k):
             case = 3
-            explain = "c_{crit} < k"
+            case_msg = "c_{crit} < k"
             fn = latex("n^{{{}}}log^{{{}}} n".format(k, i))
 
             if(k == 1):
@@ -174,16 +189,27 @@ def masters(a, b, k, i):
                 elif(i == 1):
                     msg = "T(n) = \Theta({{n log n }}) = \Theta({})".format(fn)
                 else:
-                    msg = "T(n) = \Theta({{n log^{{i}}n }}) = \Theta({})".format(fn)
+                    msg = "T(n) = \Theta({{n log^{{i}}n }}) = \Theta({})".format(
+                        fn)
             else:
                 if(i == 0):
                     msg = "T(n) = \Theta({{n^{{k}}}}) = \Theta({})".format(fn)
                 elif(i == 1):
-                    msg = "T(n) = \Theta({{n^{{k}} log n }}) = \Theta({})".format(fn)
+                    msg = "T(n) = \Theta({{n^{{k}} log n }}) = \Theta({})".format(
+                        fn)
                 else:
-                    msg = "T(n) = \Theta({{n^{{k}} log^{{i}}n }}) = \Theta({})".format(fn)
+                    msg = "T(n) = \Theta({{n^{{k}} log^{{i}}n }}) = \Theta({})".format(
+                        fn)
 
-        return (T, c_latex, explain, case, latex(msg))
+        solution = {
+            "T(n)": T,
+            "critical_exponent": c_latex,
+            "case_msg": case_msg,
+            "case_num": case,
+            "msg": latex(msg)
+        }
+
+        return (solution)
 
 
 def generate_tree(a, b, k, i):
@@ -191,7 +217,9 @@ def generate_tree(a, b, k, i):
     d = dict()
     d[0] = Node("f(n) Root Node")
 
-    if(masters_invalid(a, b, k, i)[0]):
+    invalid_input = masters_invalid(a, b, k, i)[0]
+
+    if(invalid_input):
         a = 2
         height = "\\log_{b} n"
         parent = 0
@@ -208,18 +236,20 @@ def generate_tree(a, b, k, i):
             if(count_children == a):
                 parent += 1
                 count_children = 0
-            d[total] = Node("f(n/b^2) Node: {}".format(total), parent=d[parent])
+            d[total] = Node("f(n/b^2) Node: {}".format(total),
+                            parent=d[parent])
             total += 1
             count_children += 1
 
         parent += 1
         count_children = 0
-        
+
         for i in range(a**3):
             if(count_children == a):
                 parent += 1
                 count_children = 0
-            d[total] = Node("f(n/b^3) Node: {}".format(total), parent=d[parent])
+            d[total] = Node("f(n/b^3) Node: {}".format(total),
+                            parent=d[parent])
             total += 1
             count_children += 1
 
@@ -230,7 +260,8 @@ def generate_tree(a, b, k, i):
         parent = 0
 
         for i in range(1, a + 1):
-            d[total] = Node("f(n/{}) Node: {}".format(b, total), parent=d[parent])
+            d[total] = Node(
+                "f(n/{}) Node: {}".format(b, total), parent=d[parent])
             total += 1
 
         parent += 1
@@ -240,24 +271,28 @@ def generate_tree(a, b, k, i):
             if(count_children == a):
                 parent += 1
                 count_children = 0
-            d[total] = Node("f(n/{}) Node: {}".format(b**2, total), parent=d[parent])
+            d[total] = Node("f(n/{}) Node: {}".format(b **
+                                                      2, total), parent=d[parent])
             total += 1
             count_children += 1
 
         parent += 1
         count_children = 0
-        
+
         for i in range(a**3):
             if(count_children == a):
                 parent += 1
                 count_children = 0
-            d[total] = Node("f(n/{}) Node: {}".format(b**3, total), parent=d[parent])
+            d[total] = Node("f(n/{}) Node: {}".format(b **
+                                                      3, total), parent=d[parent])
             total += 1
             count_children += 1
 
+    # render cmd line tree
     for pre, fill, node in RenderTree(d[0]):
         print("%s%s" % (pre, node.name))
 
+    # render tree image
     DotExporter(d[0]).to_picture("./pages/static/images/tree.png")
 
     return (height)

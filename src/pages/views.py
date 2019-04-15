@@ -28,41 +28,64 @@ class BigO(TemplateView):
             # save data and clean malicious input
             form.save()
             text = form.cleaned_data['post']
+            guess = form.cleaned_data['guess']
 
             # run maths
-            soln = bigO(text)
-            limit_msg = list()
-            more = list()
+            solution = bigO(text, guess)
 
-            if(type(soln) == str):
-                f = soln
-                g = "\\text{Make sure you are using python syntax for math expressions.}"
-                limit_msg = ["Please try again."]
+            limit_msg = list()
+            more_info = list()
+
+            if(type(solution) == str):
+                title = solution
+                answer = "\\text{Use python syntax for math expressions.}"
+                limit_msg = ["Also make sure your equation is in terms of n.","Please try again."]
             else:
-                f = "$$\\text{{Analysis of }} f(n) = {}$$".format(soln[0])
-                g = "f(n) = O({}) ".format(soln[1])
-                const = soln[2]
-                omega = soln[3]
-                
-                limit_msg.append("Using limits we can deduce the bounds, and thus the run-time, of the function.")
-                limit_msg.append("$$ \lim_{{n \\to +\infty}} \\frac{{{}}}{{{}}} = {}$$".format(soln[0], soln[1], const))
-                limit_msg.append("Thus, this function has a upper bound of, $${}$$.".format(g))
-                limit_msg.append("This is the worst case run-time.")
-                
-                if(const is not 0):
-                    more.append("Since the limit as n grows to infinity is greater than 0 we can also say,")
-                    if(soln[4]):
-                        more.append("$${} \\textbf{{ and }} f(n) = \\Omega({}) \\implies \\Theta({})$$".format(g, omega, omega))
-                        more.append("Thus we can say f(n) is tight bound by g(n), meaning the functions grow at approximately the same rate.")
+
+                f = solution["f(n)"]
+                g = solution["g(n)"]
+                constant = solution["constant"]
+                omega = solution["omega"]
+
+                title = "$$\\text{{Analysis of }} f(n) = {}$$".format(f)
+                answer = "f(n) = O({}) ".format(g)
+
+                if(solution["guess"] != None):
+                    if(solution["guess"] != False):
+                        limit_msg.append(
+                            "Your guess was correct! $$f(n) = O({})$$ Shown below is what the analysis tool has returned.".format(solution["guess"]))
                     else:
-                        more.append("$${} \\textbf{{ and }} f(n) = \\Omega({})$$".format(g, omega))
-                        more.append("This means that f(n) grows faster than g(n)")
-            
+                        limit_msg.append(
+                            "Your guess was incorrect. $$f(n) \eq O({})$$ Shown below is what the analysis tool has returned.".format(solution["guess"]))
+
+                limit_msg.append(
+                    "$$\\textbf{Using the Limit}$$ With limits we can deduce the bounds, and thus the run-time, of the function.")
+                limit_msg.append(
+                    "$$ \lim_{{n \\to +\infty}} \\frac{{{}}}{{{}}} = {}$$".format(f, g, constant))
+                limit_msg.append(
+                    "Thus, this function has a upper bound of, $$O({})$$.".format(g))
+                limit_msg.append("This is a worst case run-time.")
+
+                if(constant is not 0):
+                    more_info.append(
+                        "Since the limit as n grows to infinity is greater than 0 we can also say,")
+                    if(solution["theta"] == True):
+                        more_info.append(
+                            "$${} \\textbf{{ and }} f(n) = \\Omega({}) \\implies \\Theta({})$$".format(answer, omega, g))
+                        more_info.append(
+                            "Thus we can say f(n) is tight bound by g(n), meaning the functions grow at approximately the same rate.")
+                    else:
+                        more_info.append(
+                            "$${} \\textbf{{ and }} f(n) = \\Omega({})$$".format(answer, omega))
+                        more_info.append(
+                            "This means that f(n) grows faster than g(n)")
+
             # init blank form
             form = ComplexityForm()
 
-        args = {'form': form, 'f': f, 'g': g, 'lim': limit_msg, 'more': more}
-        return render(request, self.template_name, args)
+            args = {'form': form, 'title': title, 'answer': answer,
+                    'lim': limit_msg, 'more': more_info}
+            return render(request, self.template_name, args)
 
 
 class Masters(TemplateView):
@@ -88,42 +111,64 @@ class Masters(TemplateView):
                 k = int(form.cleaned_data['post_k'])
                 i = int(form.cleaned_data['post_i'])
 
-                 # run maths
-                soln = masters(a, b, k, i)
-                ans = list()
+                # run maths
+                solution = masters(a, b, k, i)
 
                 # create tree and function will return respective height
                 height = generate_tree(a, b, k, i)
 
-                if (type(soln) == str):
+                ans = list()
+
+                if (type(solution) == list):
                     T = "\\textbf{Invalid Input}"
 
-                    ans.append("\\text{{{}}}".format(soln))
+                    for err_msg in solution:
+                        print(err_msg)
+                        ans.append("\\text{{{}}}".format(err_msg))
+
                     ans.append("\\text{Please try again.}")
-                    tree_msg = "\\text{This is an example tree which shows the first 3 levels of the recursion tree for } a=2." 
-                    height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(height)           
+                    tree_msg = "\\text{This is an example tree which shows the first 3 levels of the recursion tree for } a=2."
+                    height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(
+                        height)
 
                 else:
-                    T = "\\textbf{{Analysis of the recurrence }} {}".format(soln[0])
-                    ans.append(soln[1])
-                    ans.append("\\text{{From this we deduce }} {} \\text{{, which then implies we have case }} {}".format(soln[2], soln[3]))
-                    ans.append("\\textbf{{Solution: }} {}".format(soln[4]))
-                    tree_msg = "\\text{This is the first 3 levels of the recursion tree for } f(n)." 
-                    height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(height)   
 
-                args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg, 'height': height, 'a': a, 'b': b, 'k': k, 'i': i}        
-            
+                    T = solution["T(n)"]
+                    critical = solution["critical_exponent"]
+                    case_msg = solution["case_msg"]
+                    case_num = solution["case_num"]
+                    msg = solution["msg"]
+
+                    T = "\\textbf{{Analysis of the recurrence }} {}".format(T)
+                    ans.append(critical)
+                    ans.append("\\text{{From this we deduce }} {} \\text{{, which then implies we have case }} {}".format(case_msg, case_num))
+                    ans.append("\\textbf{{Solution: }} {}".format(msg))
+                    tree_msg = "\\text{This is the first 3 levels of the recursion tree for } f(n)."
+                    height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(
+                        height)
+
+                # init blank form
+                form = MastersForm()
+
+                args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg,
+                        'height': height, 'a': a, 'b': b, 'k': k, 'i': i}
+
+                return render(request, self.template_name, args)
+
             except:
-                
-                T = "\\textbf{Invalid Input}"
+
+                T = "\\textbf{Invalid Syntax}"
                 ans = ["\\text{Please try again.}"]
                 tree_msg = "\\text{This is an } \\textbf{example } \\text{tree which shows the first 3 levels of the recursion tree for } a=2."
-                height = generate_tree(2, 2, 1, 1) ## trigger example from bad input for tree gen
-                height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(height)           
+                # trigger example from bad input for tree generator
+                height = generate_tree(2, 2, 1, 1)
+                height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(
+                    height)
 
-                args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg, 'height': height}        
+                # init blank form
+                form = MastersForm()
 
-            # init blank form
-            form = MastersForm()
+                args = {'form': form, 'T': T, 'ans': ans,
+                        'tree_msg': tree_msg, 'height': height}
 
-        return render(request, self.template_name, args)
+                return render(request, self.template_name, args)
