@@ -4,18 +4,6 @@
        local('Potra');
 }
 
-@font-face {
-  font-family: 'Square';
-  src: url('./fonts/Square.ttf')  format("truetype"),
-       local('Square');
-}
-
-@font-face {
-  font-family: 'Squareo';
-  src: url('./fonts/Squareo.ttf')  format("truetype"),
-       local('Squareo');
-}
-
 .nav-link {
   color: aliceblue;
   font-size: large;
