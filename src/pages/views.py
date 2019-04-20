@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from pages.forms import ComplexityForm, MastersForm
 from pages.models import ComplexityPost, MastersPost
 from django.shortcuts import render, redirect
-from pages.logicLayer import bigO, masters, generate_tree
+from pages.logicLayer import complexity, masters, generate_tree
 
 
 class Home(TemplateView):
@@ -31,7 +31,7 @@ class BigO(TemplateView):
             guess = form.cleaned_data['guess']
 
             # run maths
-            solution = bigO(text, guess)
+            solution = complexity(text, guess)
 
             limit_msg = list()
             more_info = list()

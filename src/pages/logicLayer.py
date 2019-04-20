@@ -9,7 +9,7 @@ from anytree.exporter import DotExporter
 import string
 
 
-def bigO(fn, guess=None):
+def complexity(fn, guess=None):
     """
         INPUT: f(n) \n
         OUTPUT: O(g(n)) such that f(n) is bounded by g(n)
@@ -57,7 +57,7 @@ def bigO(fn, guess=None):
                 if(check > 0):
                     # then by definition f(n) = Theta(g(n))
                     solution["theta"] = True
-                    solution["omega"] = g
+                    solution["omega"] = latex(g)
                 else:
                     if(omega_index == -1):
                         solution["omega"] = '1'
