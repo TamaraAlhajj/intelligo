@@ -4,80 +4,15 @@
 
 {% load static %}
 
-<div class="container">
-    <h1 class="display-4 font-italic">Mastering Master's</h1>
-    <p>
-        The Master's Method, also known as the Master's Theorem, is a simple way to solve recurrences of the following
-        form,
-        $$ T(n)=aT(\frac{n}{b})+ \Theta(f(n))$$
-
-        More specifically,
-
-        $$T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n))$$
-
-        $$a \rightarrow \text{number of subproblems in recurrence relation}$$
-        $$b \rightarrow \text{branching factor which reduces the subproblem with each recursive call}$$
-        $$\text{Base Case} \rightarrow T(0) = \Theta(1)$$
-    </p>
-    <p>
-        Moreover, the following variable must be defined using variables a and b,
-        $$c_{critical} = \textit{the work to split/recombine vs subproblems}$$
-        $$= \textit{log(# of subproblems)/log(relative problem size)}$$
-        $$= log(a)/log(b)$$
-        $$= log_{b} a $$
-    </p>
-    <p>This method can be used to solve all recurrences which adhere to the following rules:</p>
-    <ul class="list-group">
-        <li class="list-group-item list-group-item">a must be be at least 0</li>
-        <li class="list-group-item list-group-item">b must be an integer larger than 1</li>
-        <li class="list-group-item list-group-item">k must be at least 0</li>
-        <li class="list-group-item list-group-item">i must be at least 0, but <em>usually i = 0</em> </li>
-        <li class="list-group-item list-group-item">All argument values must be constants</li>
-        <li class="list-group-item list-group-item">Must have polynomial difference between, $$f(n) \text{ and }
-            n^{\log _{b} a}$$</li>
-    </ul>
-    <p class="mt-5">
-        If each of these criteria is met, you may then solve your recurrence with the Master's Method! 
-        So what is this method, you ask?
-        The following table is a summary of what the theorem states,
-        <table class="table text-center table-light">
-            <thead class="thead-dark">
-                <th scope="col">Case</th>
-                <th scope="col">Condition</th>
-                <th scope="col">Master's Theorem bound</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>$$f(n) = O(n^c) \textit{ such that } c < c_{critical}$$</td> <td>$$T(n) =
-                            \Theta(n^{c_{critical}})$$</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>$$f(n) = \Theta(n^{c_{critical}} log^{i} n)$$</td>
-                    <td>$$T(n) = \Theta(n^{c_{critical}} log^{i+1} n)$$</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>$$ f(n) = \Omega(n^c) \textit{ such that } c > c_{critical}$$</td>
-                    <td>$$T(n) = \Theta(f(n))$$</td>
-                </tr>
-            </tbody>
-        </table>
-    </p>
-</div>
-<br>
-<hr>
-<div class="container">
-
-    <h1 class="display-4 p-3 mb-2 bg-primary text-white text-center">Analysis Tool</h1>
+<div class="container text-center">
+    <h1 class="display-4 font-italic">Master's Method Tool</h1>
     <p class="font-weight-light">
         This a tool to provide asymptotic analysis for divide-and-conquer recurrences, with the use of <a
             href="{% url 'bigO' %}">big-O notaion</a>.
         Just follow the rules stated above and enter your desired values for a, b, k, & i.
         The solution will be generated along with the recursion tree.
     </p>
-    <div class="row text-center">
+    <div class="row">
         <form class="form-group col-12" method="post">
             <label for="id_post" class="lead">
                 Input for Equation of the form, $$ T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n))$$
@@ -126,7 +61,7 @@
     </div>
 </div>
 <div class="container mt-4">
-    <div class="card text-center">
+    <div class="card">
         <div class="card-header text-muted">
             <a href="{% static '/../static/images/tree.png' %}" target="_blank">
                 Click Here to see tree in full window view.

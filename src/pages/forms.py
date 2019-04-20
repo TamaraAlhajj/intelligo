@@ -10,10 +10,10 @@ class ComplexityForm(forms.ModelForm):
             'placeholder': 'Input Equation...'
         }
     ))
-    guess = forms.CharField(required=False, widget=forms.TextInput(
+    guess = forms.CharField(required=True, widget=forms.TextInput(
         attrs={
             'class': 'form-control col-12 mt-2',
-            'placeholder': 'Optional: Guess the answer...'
+            'placeholder': 'Optional: Guess the lower bound'
         }
     ))
 

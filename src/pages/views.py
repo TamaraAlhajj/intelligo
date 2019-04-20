@@ -10,8 +10,8 @@ class Home(TemplateView):
     template_name = "home.html"
 
 
-class Info(TemplateView):
-    template_name = "info.html"
+class Notes(TemplateView):
+    template_name = "notes.html"
 
 
 class BigO(TemplateView):
@@ -39,7 +39,8 @@ class BigO(TemplateView):
             if(type(solution) == str):
                 title = solution
                 answer = "\\text{Use python syntax for math expressions.}"
-                limit_msg = ["Also make sure your equation is in terms of n.","Please try again."]
+                limit_msg = [
+                    "Also make sure your equation is in terms of n.", "Please try again."]
             else:
 
                 f = solution["f(n)"]
@@ -50,13 +51,13 @@ class BigO(TemplateView):
                 title = "$$\\text{{Analysis of }} f(n) = {}$$".format(f)
                 answer = "f(n) = O({}) ".format(g)
 
-                if(solution["guess"] != None):
-                    if(solution["guess"] != False):
-                        limit_msg.append(
-                            "Your guess was correct! $$f(n) = O({})$$ Shown below is what the analysis tool has returned.".format(solution["guess"]))
-                    else:
-                        limit_msg.append(
-                            "Your guess was incorrect. $$f(n) \eq O({})$$ Shown below is what the analysis tool has returned.".format(solution["guess"]))
+                
+                if(solution["guess_solution"] != False):
+                    limit_msg.append(
+                        "Your guess was correct! $$f(n) = O({})$$ Shown below is what the analysis tool has returned.".format(solution["guess"]))
+                else:
+                    limit_msg.append(
+                        "Your guess was incorrect. $$f(n) \\neq O({})$$ Shown below is what the analysis tool has returned.".format(solution["guess"]))
 
                 limit_msg.append(
                     "$$\\textbf{Using the Limit}$$ With limits we can deduce the bounds, and thus the run-time, of the function.")
@@ -141,7 +142,8 @@ class Masters(TemplateView):
 
                     T = "\\textbf{{Analysis of the recurrence }} {}".format(T)
                     ans.append(critical)
-                    ans.append("\\text{{From this we deduce }} {} \\text{{, which then implies we have case }} {}".format(case_msg, case_num))
+                    ans.append("\\text{{From this we deduce }} {} \\text{{, which then implies we have case }} {}".format(
+                        case_msg, case_num))
                     ans.append("\\textbf{{Solution: }} {}".format(msg))
                     tree_msg = "\\text{This is the first 3 levels of the recursion tree for } f(n)."
                     height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(

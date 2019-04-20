@@ -30,9 +30,9 @@
                 <hr>
                 <nav class="nav justify-content-center lead">
                     <a class="nav-link active" href="/#">Home</a>
+                    <a class="nav-link" href="{% url 'notes' %}">Notes</a>
                     <a class="nav-link" href="{% url 'bigO' %}">Asymptotic Complexity</a>
                     <a class="nav-link" href="{% url 'masters' %}">Master's Method</a>
-                    <a class="nav-link" href="{% url 'info' %}">Info</a>
                 </nav>
                 <hr>
             </div>
@@ -42,12 +42,14 @@
         {% block content %}
         replace me
         {% endblock %}
+        <br>
     </div>
 
-    <footer class="page-footer font-small blue pt-4">
-        <div class="container text-center">
-            <span class="text-muted"> © 2019 Copyright | Tamara Alhajj | Honours Project</span>
+    <footer class="page-footer font-small blue pt-4 mt-5">
+        <div class="container">
+            <p class="text-muted text-center"> © 2019 Copyright | Tamara Alhajj | Honours Project</p>
         </div>
+        <br>
     </footer>
     </div>
 

@@ -14,19 +14,21 @@
 </div>
 <hr>
 <br>
-<div class="container mt-5">
-    <h1 class="display-5">Python Math Expressions</h1>
+<div class="container">
+    <h1 class="display-4 font-italic">About this project</h1>
+    <p class="lead text-muted">Check it out on <a href="https://www.github.com/TamaraAlhajj/Intelligo" target="_blank">github <i class="fab fa-github"></i></a></p>
     <p>
-        The <a href="{% url 'bigO' %}">asymptotic complexity page</a> requires input with python math expression.
-        The following is a summary of how to input in this way.
+    Intelligo is my undergraduate honours project, completed winter 2019.
+    This project was intended to help those in COMP 3804 at Carleton University, in learning the basics of complexity theory.
+    <br>
+    Developed in chrome.
+    <br>
+    The web framework behind this application is <a href="https://www.djangoproject.com/" target="_blank">Django</a>.
+    <br>
+    The logic layer of this application was written in python3.7
+    <br>
+    The libraries I used with this are <a href="https://sympy.org/" target="_blank">SymPy</a>, <a href="https://pypi.org/project/anytree/" target="_blank">Anytree</a>, and <a href="https://graphviz.org/" target="_blank">graphviz</a>.
     </p>
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-warning"><strong class="lead">Powers:</strong>$$n^i \longrightarrow n**i$$</li>
-        <li class="list-group-item list-group-item-warning"><strong class="lead">Multiplication:</strong>$$nc \longrightarrow n*i$$</li>
-        <li class="list-group-item list-group-item-warning"><strong class="lead">Division:</strong>$$\frac{n}{c} \longrightarrow n/c$$</li>
-        <li class="list-group-item list-group-item-warning"><strong class="lead">Logarithms:</strong>$$logn \longrightarrow log(n)$$</li>
-        <li class="list-group-item list-group-item-warning"><strong class="lead">Addition & Subtraction:</strong>$$n + a - b \longrightarrow n + a - b$$</li>
-    </ul>
 </div>
 <br>
 {% endblock %}

@@ -18,26 +18,27 @@ def bigO(fn, guess=None):
     solution = dict()
     n = symbols('n')
 
+    # turn input into math expression
     try:
-        # turn input into math expression
         f = parse_expr(fn)
+        guess = parse_expr(guess)
+
         solution["f(n)"] = latex(f)
-        solution["guess"] = None
 
-        # if user has made a guess, check it first
-        if(guess != None):
-            guess = parse_expr(guess)
-            # check if f(n) is bounded by g(n) as n --> inf
-            check = Limit(f/guess, n, oo).doit()
+        # first check if f(n) is bounded by guess(n) as n --> inf
+        check = Limit(f/guess, n, oo).doit()
+        solution["guess"] = latex(guess)
 
-            if (check.is_constant() and (check != oo)):
-                solution["guess"] = latex(guess)
-            else:
-                solution["guess"] = False
+        if (check.is_constant() and (check != oo)):
+            # correct
+            solution["guess_solution"] = True
+        else:
+            # incorrect
+            solution["guess_solution"] = False
 
         # now run analysis on common bounds
         bounds = ['1', 'log(log(n))', 'log(n)', 'log(n)**2', 'sqrt(n)', 'sqrt(n) * log(n)', 'n / log(n)', 'n', 'n*log(log(n))',
-                  'n*log(n)', 'n * log(n)**2', 'n**2', 'n**2 * log(n)', 'n**3', 'n**4', '2**n', '3**n']
+                'n*log(n)', 'n * log(n)**2', 'n**2', 'n**2 * log(n)', 'n**3', 'n**4', '2**n', '3**n']
         math_bounds = [parse_expr(e) for e in bounds]
 
         omega_index = -1
@@ -69,14 +70,13 @@ def bigO(fn, guess=None):
 
         solution["g(n)"] = 'n!'
         solution["constant"] = '\\infty'
-        solution["omega"] = latex(math_bounds[omega])
+        solution["omega"] = latex(math_bounds[omega_index])
 
         return (solution)
 
     except:
         err_msg = "Error has Occurred"
         return err_msg
-
 
 def masters_invalid(a, b, k, i):
     """

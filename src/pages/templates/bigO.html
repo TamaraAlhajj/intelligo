@@ -4,103 +4,17 @@
 
 {% load static %}
 
-<div class="container">
-    <h1 class="display-4 font-italic">Simplifying Complexity</h1>
-    <p>
-        The asymptotic analysis of a given function is a means of finding the bounds of said function.
-        As computer scientists, we are concerned with the complexity of a function because computers solve computational
-        problems. By finding the complexities of our algorithms, we find the runtime of our programs.
-        <em>But what does this mean?</em>$$O(n), \Omega(log(n)), \Omega(nlog(n)), \Theta(n^2)$$
-        If your tasked to find the <em>worst-case runtime</em> of an algorithm, what would you do?
-        What about the <em>best-case</em>?
-    </p>
-    <p>
-        Not to worry!
-        Once the terminology is clear, so are the steps.
-    </p>
-    <h3>Using Limits to Bound a Function</h3>
-    <p>
-        This method is quite simple. Given the function you are analyzing, f(n) we divide by some other function, g(n).
-        All we must find is the limit of this quotient as n approaches infinity. The beauty is we can choose any
-        function g(n), no pressure.
-        Preferably, we would choose g(n) to be as tight a bound as possible... but you can also pick right out of a hat.
-        Have a little fun with it.
-
-        $$\text{Given functions: } f(n) \text{ and } g(n)$$
-
-        $$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \rightarrow \textbf{ some answer we care about }$$
-
-        Why do we care about this answer? Espesically, if g(n) can be <em>anything</em>.
-        Well, based on the answer we find we can say something about the relationship between these two functions.
-    </p>
-    <p>
-        If the limit as n grows to infinity is 0, we know from our solid maths skills the numerator grows slower than
-        the denominator.<br>
-        Which implies we have found an upper bound to f(n). <br>
-        Similarly, if the limit as n grows to infinity is infinity. Then we know the numerator grows faster than the
-        denominator.<br>
-        Which implies we have found a lower bound to f(n).
-    </p>
-
-    <p>
-        The following table shows details on all the notational terms common in the field asymptotic complexity.
-    </p>
-
-    <table class="table text-center table-striped">
-        <h3>Summary of Asymptotic Notation</h3>
-        <thead class="thead-dark">
-            <th scope="col">Notation</th>
-            <th scope="col">Name</th>
-            <th scope="col">Bound</th>
-            <th scope="col">Limit</th>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">$$f(n) \in o(g(n))$$</th>
-                <td>Little Oh</td>
-                <td>$$f < g \therefore \text{ g(n) is an upper bound}$$</td> <td>$$\lim_{n \rightarrow \infty}
-                        \frac{f(n)}{g(n)} = 0$$</td>
-            </tr>
-            <tr>
-                <th scope="row">$$f(n) \in O(g(n))$$</th>
-                <td>Big Oh</td>
-                <td>$$f \leq g \therefore \text{ g(n) is an upper bound}$$</td>
-                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \in [0, \infty)$$</td>
-            </tr>
-            </tr>
-            <tr>
-                <th scope="row">$$f(n) \in \omega(g(n))$$</th>
-                <td>Little Omega</td>
-                <td>$$f > g \therefore \text{ g(n) is an lower bound}$$</td>
-                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} = \infty$$</td>
-            </tr>
-            <tr>
-                <th scope="row">$$f(n) \in \Omega(g(n))$$</th>
-                <td>Big Omega</td>
-                <td>$$f \geq g \therefore \text{ g(n) is an upper bound}$$</td>
-                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \in (0, \infty]$$</td>
-            </tr>
-            <tr>
-                <th scope="row">$$f(n) \in \Theta(g(n))$$</th>
-                <td>Theta</td>
-                <td>$$f = g \therefore \text{ g(n) is an tight bound}$$</td>
-                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \in (0, \infty)$$</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <em class="text-muted">
-                Note: Round brackets indicate inclusive range,
-                whereas square brackets indicate exclusive range.
-            </em>
-        </tfoot>
-    </table>
-</div>
-<br>
-<hr>
-<div class="container mt-5" id="#analysis">
+<div class="container mt-5">
     <div class="text-center">
-        <h1 class="display-4 p-3 mb-2 bg-primary text-white">Analysis Tool</h1>
+        <h1 class="display-4 font-italic">Asymptotic Analysis Tool</h1>
         <p class="lead font-italic text-muted">Try it yourself! Enter an equation, then run the asymptotic analysis.</p>
+        <p>
+        This tool analyzes the input equation, <em>f(n)</em> in terms of <em>n</em>.
+        So all other variables are not considered when deducing the final answer.
+        <br>
+        Also note input with python math expressions is REQUIRED.
+        Please refer to the <a href="{% url 'notes' %}">usage information</a> section in the notes provided, for a summary of how to input in this way.
+        </p>
     </div>
     <div class="row">
         <form class="form-group col-sm" method="post">
