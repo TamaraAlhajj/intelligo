@@ -125,14 +125,13 @@ def masters(a, b, k, i):
     else:
         # for math operations
         fn = parse_expr("n**{} * log(n)**{}".format(k, i))
-        c_critical = log(a, b)
-        c_eval = N(c_critical, 3)
+        c_critical = N(log(a, b))
 
         # for pretty printing functions with latex in view
-        if(float(c_critical) == c_eval):
-            c_latex = "c_{{critical}} = \log_{} {} = {}".format(b, a, c_critical)
-        else:
-            c_latex = "c_{{critical}} = \log_{} {} = {} = {}".format(b, a, c_critical, c_eval)
+        if(c_critical == int(c_critical)):
+            c_critical = int(c_critical)
+
+        c_latex = "c_{{critical}} = \log_{} {} = {}".format(b, a, c_critical)
 
         if(k == 0):
             f = ""
@@ -164,7 +163,13 @@ def masters(a, b, k, i):
             case = 1
             case_msg = "c_{crit} > k"
             
-            expr = latex("n^{{{}}}").format(c_eval)
+            if(c_critical == 0):
+                expr = "1"
+            elif(c_critical == 1):
+                expr = "n"
+            else:
+                expr = latex("n^{{{}}}").format(c_critical)
+
             msg = "T(n) = \Theta(n^{{c_{{critical}}}}) = \Theta(n^{{\log_b a}}) = \Theta({})".format(expr)
 
         if(c_critical == k):
@@ -176,7 +181,7 @@ def masters(a, b, k, i):
             elif(c_critical == 1):
                 expr = latex("n log^{{{}}} n".format(i+1))
             else:
-                expr = latex("n^{{{}}}log^{{{}}} n".format(c_eval, i+1))
+                expr = latex("n^{{{}}}log^{{{}}} n".format(c_critical, i+1))
 
             msg = "T(n) = \Theta(n^{{\log_b a}} \log^{{i+1}} n) = \Theta({})".format(expr)
 
