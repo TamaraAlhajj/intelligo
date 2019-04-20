@@ -185,21 +185,19 @@ def masters(a, b, k, i):
 
             if(k == 1):
                 if(i == 0):
-                    msg = "T(n) = \Theta({{n}}) = \Theta({})".format(fn)
+                    msg = "T(n) = \Theta({}) = \Theta({{n}})".format(fn)
                 elif(i == 1):
-                    msg = "T(n) = \Theta({{n log n }}) = \Theta({})".format(fn)
+                    msg = "T(n) = \Theta({}) = \Theta({{n log n }})".format(fn)
                 else:
-                    msg = "T(n) = \Theta({{n log^{{i}}n }}) = \Theta({})".format(
+                    msg = "T(n) = \Theta({}) = \Theta({{n log^{{i}}n }})".format(
                         fn)
             else:
                 if(i == 0):
-                    msg = "T(n) = \Theta({{n^{{k}}}}) = \Theta({})".format(fn)
+                    msg = "T(n) = \Theta({}) = \Theta({{n^{{k}}}})".format(fn)
                 elif(i == 1):
-                    msg = "T(n) = \Theta({{n^{{k}} log n }}) = \Theta({})".format(
-                        fn)
+                    msg = "T(n) = \Theta({}) = \Theta({{n^{{k}} log n }})".format(fn)
                 else:
-                    msg = "T(n) = \Theta({{n^{{k}} log^{{i}}n }}) = \Theta({})".format(
-                        fn)
+                    msg = "T(n) = \Theta({}) = \Theta({{n^{{k}} log^{{i}}n }})".format(fn)
 
         solution = {
             "T(n)": T,

@@ -65,7 +65,6 @@ class BigO(TemplateView):
                     "$$ \lim_{{n \\to +\infty}} \\frac{{{}}}{{{}}} = {}$$".format(f, g, constant))
                 limit_msg.append(
                     "Thus, this function has a upper bound of, $$O({})$$.".format(g))
-                limit_msg.append("This is a worst case run-time.")
 
                 if(constant is not 0):
                     more_info.append(
