@@ -1,6 +1,8 @@
 from sympy import *
 from sympy.parsing.sympy_parser import parse_expr
 
+from math import log
+
 from anytree import Node, RenderTree
 from anytree.exporter import DotExporter
 # To be used if DotExporter is not functional
