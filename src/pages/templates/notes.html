@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load static %}
+
 <div class="container">
     <h1 class="display-4 font-italic">Simplifying Complexity</h1>
     <p>
@@ -107,10 +109,27 @@
             </em>
         </tfoot>
     </table>
+
+    <div class="container mt-4 text-center">
+        <h1 class="display-5 p-3 mb-2 bg-warning text-white">Generalized Graphs of Asymptotic Notations</h1>
+        <p class="lead text-muted">Number of operations versus input size for example functions</p>
+        <img class="d-block w-60 h-60 rounded img-fluid" src="{% static 'images/asymptoticNotationGraphs.png'%}" alt="asymptotic example graphs">
+    </div>
+
+    <div class="row col-12 lead p-3 mt-2 mb-2">
+        <div class="container col-3"><p>Big Theta is shown as a tight bound.</p></div>
+        <div class="container col-3"><p>Big Oh is shown as a upper bound.</p></div>
+        <div class="container col-3"><p>Big Omega is shown as a lower bound.</p></div>
+    </div>
+
+    <div class="container mt-4 text-center">
+        <p><b>Disclaimer:</b> These graphs are not based on user input. They are examples to aid in visualizing the meaning of Big Oh, Theta, and Omega. </p>
+        <p class="text-center text-muted mt-3"><i class="fa fa-book"></i> Cormen, T.H., et al. Introduction to Algorithms. MIT Press, 2009. Page 45.</p>
+    </div>
 </div>
 <br>
 <hr>
-<div class="container">
+<div class="container mt-4">
     <h1 class="display-4 font-italic">Mastering Master's</h1>
     <p>
         The Master's Method, also known as the Master's Theorem, is a simple way to solve recurrences of the following
