@@ -4,6 +4,7 @@ from pages.forms import ComplexityForm, MastersForm
 from pages.models import ComplexityPost, MastersPost
 from django.shortcuts import render, redirect
 from pages.logicLayer import complexity, masters, generate_tree
+import os
 
 
 class Home(TemplateView):
@@ -93,6 +94,8 @@ class Masters(TemplateView):
 
     def get(self, request):
 
+        if os.path.exists("./pages/static/images/tree.png"):
+            os.remove("./pages/static/images/tree.png") 
         form = MastersForm()
         args = {'form': form}
 
@@ -148,10 +151,11 @@ class Masters(TemplateView):
                     height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(
                         height)
 
+                tree_img = "{}-{}-{}-{}.png".format(a, b, k, i)
                 # init blank form
                 form = MastersForm()
 
-                args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg,
+                args = {'form': form, 'T': T, 'ans': ans, tree_img: 'tree_img', 'tree_msg': tree_msg,
                         'height': height, 'a': a, 'b': b, 'k': k, 'i': i}
 
                 return render(request, self.template_name, args)

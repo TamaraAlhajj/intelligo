@@ -13,14 +13,13 @@ class ComplexityForm(forms.ModelForm):
     guess = forms.CharField(required=True, widget=forms.TextInput(
         attrs={
             'class': 'form-control col-12 mt-2',
-            'placeholder': 'Optional: Guess the lower bound'
+            'placeholder': 'Guess the lower bound'
         }
     ))
 
     # required for Model Forms
     class Meta:
         model = ComplexityPost
-        # comma makes this a tuple and thus immutable
         fields = ('post', 'guess')
 
 

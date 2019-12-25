@@ -19,7 +19,6 @@ from django.contrib import admin
 from pages.views import Home, BigO, Masters, Notes
 from django.urls import path, include
 
-
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls),

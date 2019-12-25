@@ -1,3 +1,4 @@
+import os
 from sympy import *
 from sympy.parsing.sympy_parser import parse_expr
 
@@ -40,7 +41,7 @@ def complexity(fn, guess=None):
 
         # now run analysis on common bounds
         bounds = ['1', 'log(log(n))', 'log(n)', 'log(n)**2', 'sqrt(n)', 'sqrt(n) * log(n)', 'n / log(n)', 'n', 'n*log(log(n))',
-                'n*log(n)', 'n * log(n)**2', 'n**2', 'n**2 * log(n)', 'n**3', 'n**4', '2**n', '3**n']
+                  'n*log(n)', 'n * log(n)**2', 'n**2', 'n**2 * log(n)', 'n**3', 'n**4', '2**n', '3**n']
         math_bounds = [parse_expr(e) for e in bounds]
 
         omega_index = -1
@@ -80,6 +81,7 @@ def complexity(fn, guess=None):
         err_msg = "Error has Occurred"
         return err_msg
 
+
 def masters_invalid(a, b, k, i):
     """
         INPUT: Master's Arguments
@@ -96,7 +98,7 @@ def masters_invalid(a, b, k, i):
             msg.append("k must be at least 0, ")
         if(i < 0):
             msg.append("i must be at least 0, ")
-        
+
         if(len(msg) == 0):
             return(False, "Valid Input")
 
@@ -162,7 +164,7 @@ def masters(a, b, k, i):
         if(c_critical > k):
             case = 1
             case_msg = "c_{crit} > k"
-            
+
             if(c_critical == 0):
                 expr = "1"
             elif(c_critical == 1):
@@ -170,7 +172,8 @@ def masters(a, b, k, i):
             else:
                 expr = latex("n^{{{}}}").format(c_critical)
 
-            msg = "T(n) = \Theta(n^{{c_{{critical}}}}) = \Theta(n^{{\log_b a}}) = \Theta({})".format(expr)
+            msg = "T(n) = \Theta(n^{{c_{{critical}}}}) = \Theta(n^{{\log_b a}}) = \Theta({})".format(
+                expr)
 
         if(c_critical == k):
             case = 2
@@ -202,9 +205,11 @@ def masters(a, b, k, i):
                 if(i == 0):
                     msg = "T(n) = \Theta({}) = \Theta({{n^{{k}}}})".format(fn)
                 elif(i == 1):
-                    msg = "T(n) = \Theta({}) = \Theta({{n^{{k}} log n }})".format(fn)
+                    msg = "T(n) = \Theta({}) = \Theta({{n^{{k}} log n }})".format(
+                        fn)
                 else:
-                    msg = "T(n) = \Theta({}) = \Theta({{n^{{k}} log^{{i}}n }})".format(fn)
+                    msg = "T(n) = \Theta({}) = \Theta({{n^{{k}} log^{{i}}n }})".format(
+                        fn)
 
         solution = {
             "T(n)": T,
@@ -298,6 +303,8 @@ def generate_tree(a, b, k, i):
         print("%s%s" % (pre, node.name))
 
     # render tree image
+    if os.path.exists("./pages/static/images/tree.png"):
+        os.remove("./pages/static/images/tree.png")
     DotExporter(d[0]).to_picture("./pages/static/images/tree.png")
 
     return (height)
