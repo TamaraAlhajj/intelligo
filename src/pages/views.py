@@ -7,6 +7,7 @@ from pages.logicLayer import complexity, masters, generate_tree
 import os
 
 
+
 class Home(TemplateView):
     template_name = "home.html"
 
@@ -52,7 +53,6 @@ class BigO(TemplateView):
                 title = "$$\\text{{Analysis of }} f(n) = {}$$".format(f)
                 answer = "f(n) = O({}) ".format(g)
 
-                
                 if(solution["guess_solution"] != False):
                     limit_msg.append(
                         "Your guess was correct! $$f(n) = O({})$$ Shown below is what the analysis tool has returned.".format(solution["guess"]))
@@ -95,7 +95,7 @@ class Masters(TemplateView):
     def get(self, request):
 
         if os.path.exists("./pages/static/images/tree.png"):
-            os.remove("./pages/static/images/tree.png") 
+            os.remove("./pages/static/images/tree.png")
         form = MastersForm()
         args = {'form': form}
 
