@@ -1,1 +1,1 @@
-web: gunicorn intelligo.wsgi
+web: gunicorn ./src/intelligo/wsgi.py
