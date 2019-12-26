@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Potra';
-  src: url('./fonts/Potra.ttf')  format("truetype"),
-       local('Potra');
+  src: url('./fonts/Potra.ttf') format("truetype"),
+    local('Potra');
 }
 
 .nav-link {
@@ -24,4 +24,9 @@
   background-color: #333745;
   color: aliceblue;
   font-family: 'Potra', sans-serif;
+}
+
+#list {
+  font-family: Helvetica, Arial, sans-serif;
+  white-space: pre-wrap;
 }

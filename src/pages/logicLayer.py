@@ -299,12 +299,13 @@ def generate_tree(a, b, k, i):
             count_children += 1
 
     # render cmd line tree
-    for pre, fill, node in RenderTree(d[0]):
-        print("%s%s" % (pre, node.name))
-
-    # render tree image
-    if os.path.exists("./pages/static/images/tree.png"):
-        os.remove("./pages/static/images/tree.png")
-    DotExporter(d[0]).to_picture("./pages/static/images/tree.png")
+    with open('./pages/static/tree.txt', 'w') as f:
+        for pre, fill, node in RenderTree(d[0]):
+            print("%s%s" % (pre, node.name), file=f)
+            
+    # render new tree image
+    if os.path.exists("./pages/static/tree.png"):
+        os.remove("./pages/static/tree.png")
+    DotExporter(d[0]).to_picture("./pages/static/tree.png")
 
     return (height)
