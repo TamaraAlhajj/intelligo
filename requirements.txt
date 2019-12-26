@@ -9,7 +9,7 @@ graphviz==0.13.2
 gunicorn==20.0.4
 mkl_fft
 mkl_random
-mkl-service
+mkl_service
 mpmath==1.1.0
 numpy==1.17.4
 psycopg2==2.7.5
