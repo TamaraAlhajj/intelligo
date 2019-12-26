@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="container">
+    <h1 class="display-4 font-italic">Simplifying Complexity</h1>
+    <p>
+        The asymptotic analysis of a given function is a means of finding the bounds of said function.
+        As computer scientists, we are concerned with the complexity of a function because computers solve computational
+        problems. By finding the complexities of our algorithms, we find the runtime of our programs.
+        <em>But what does this mean?</em>$$O(n), \Omega(log(n)), \Omega(nlog(n)), \Theta(n^2)$$
+        If your tasked to find the <em>worst-case runtime</em> of an algorithm, what would you do?
+        What about the <em>best-case</em>?
+    </p>
+    <p>
+        Not to worry!
+        Once the terminology is clear, so are the steps.
+        First things first, let us go over the input methods for the asymptotic complexity tool.
+    </p>
+    <div class="container mt-5">
+        <h1 class="display-5 p-3 mb-2 bg-warning text-white">Usage Information</h1>
+        <p> The following is a summay of how to input python math expressions, which is required to use the asymptotic complexity tool.</p>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-warning"><strong class="lead">Powers:</strong>$$n^i \longrightarrow n**i$$</li>
+            <li class="list-group-item list-group-item-warning"><strong class="lead">Multiplication:</strong>$$nc \longrightarrow n*i$$</li>
+            <li class="list-group-item list-group-item-warning"><strong class="lead">Division:</strong>$$\frac{n}{c} \longrightarrow n/c$$</li>
+            <li class="list-group-item list-group-item-warning"><strong class="lead">Logarithms:</strong>$$logn \longrightarrow log(n)$$</li>
+            <li class="list-group-item list-group-item-warning"><strong class="lead">Addition & Subtraction:</strong>$$n + a - b \longrightarrow n + a - b$$</li>
+        </ul>
+    </div>
+    <br>
+    <br>
+    <p>Now that that's out of the way, let's move on to the interesting stuff.</p>
+    <h1 class="display-5">Using Limits to Bound a Function</h1>
+    <p>
+        This method is quite simple. Given the function you are analyzing, f(n) we divide by some other function, g(n).
+        All we must find is the limit of this quotient as n approaches infinity. The beauty is we can choose any
+        function g(n), no pressure.
+        Preferably, we would choose g(n) to be as tight a bound as possible... but you can also pick right out of a hat.
+        Have a little fun with it.
+
+        $$\text{Given functions: } f(n) \text{ and } g(n)$$
+
+        $$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \rightarrow \textbf{ some answer we care about }$$
+
+        Why do we care about this answer? Espesically, if g(n) can be <em>anything</em>.
+        Well, based on the answer we find we can say something about the relationship between these two functions.
+    </p>
+    <p>
+        If the limit as n grows to infinity is 0, we know from our solid maths skills the numerator grows slower than
+        the denominator.<br>
+        Which implies we have found an upper bound to f(n). <br>
+        Similarly, if the limit as n grows to infinity is infinity. Then we know the numerator grows faster than the
+        denominator.<br>
+        Which implies we have found a lower bound to f(n).
+    </p>
+
+    <p>
+        The following table shows details on all the notational terms common in the field asymptotic complexity.
+    </p>
+
+<hr>
+
+    <table class="table text-center table-striped">
+        <h3>Summary of Asymptotic Notation</h3>
+        <thead class="thead-dark">
+            <th scope="col">Notation</th>
+            <th scope="col">Name</th>
+            <th scope="col">Bound</th>
+            <th scope="col">Limit</th>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">$$f(n) \in o(g(n))$$</th>
+                <td>Little Oh</td>
+                <td>$$f < g \therefore \text{ g(n) is an upper bound}$$</td> <td>$$\lim_{n \rightarrow \infty}
+                        \frac{f(n)}{g(n)} = 0$$</td>
+            </tr>
+            <tr>
+                <th scope="row">$$f(n) \in O(g(n))$$</th>
+                <td>Big Oh</td>
+                <td>$$f \leq g \therefore \text{ g(n) is an upper bound}$$</td>
+                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \in [0, \infty)$$</td>
+            </tr>
+            </tr>
+            <tr>
+                <th scope="row">$$f(n) \in \omega(g(n))$$</th>
+                <td>Little Omega</td>
+                <td>$$f > g \therefore \text{ g(n) is an lower bound}$$</td>
+                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} = \infty$$</td>
+            </tr>
+            <tr>
+                <th scope="row">$$f(n) \in \Omega(g(n))$$</th>
+                <td>Big Omega</td>
+                <td>$$f \geq g \therefore \text{ g(n) is an upper bound}$$</td>
+                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \in (0, \infty]$$</td>
+            </tr>
+            <tr>
+                <th scope="row">$$f(n) \in \Theta(g(n))$$</th>
+                <td>Theta</td>
+                <td>$$f = g \therefore \text{ g(n) is an tight bound}$$</td>
+                <td>$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \in (0, \infty)$$</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <em class="text-muted">
+                Note: Round brackets indicate inclusive range,
+                whereas square brackets indicate exclusive range.
+            </em>
+        </tfoot>
+    </table>
+
+    <div class="container mt-4 text-center">
+        <h1 class="display-5 p-3 mb-2 bg-warning text-white">Generalized Graphs of Asymptotic Notations</h1>
+        <p class="lead text-muted">Number of operations versus input size for example functions</p>
+        <img class="d-block w-60 h-60 rounded img-fluid" src="{% static 'images/asymptoticNotationGraphs.png'%}" alt="asymptotic example graphs">
+    </div>
+
+    <div class="row col-12 lead p-3 mt-2 mb-2">
+        <div class="container col-3"><p>Big Theta is shown as a tight bound.</p></div>
+        <div class="container col-3"><p>Big Oh is shown as a upper bound.</p></div>
+        <div class="container col-3"><p>Big Omega is shown as a lower bound.</p></div>
+    </div>
+
+    <div class="container mt-4 text-center">
+        <p><b>Disclaimer:</b> These graphs are not based on user input. They are examples to aid in visualizing the meaning of Big Oh, Theta, and Omega. </p>
+        <p class="text-center text-muted mt-3"><i class="fa fa-book"></i> Cormen, T.H., et al. Introduction to Algorithms. MIT Press, 2009. Page 45.</p>
+    </div>
+</div>
+<br>
+<hr>
+<div class="container mt-4">
+    <h1 class="display-4 font-italic">Mastering Master's</h1>
+    <p>
+        The Master's Method, also known as the Master's Theorem, is a simple way to solve recurrences of the following
+        form,
+        $$ T(n)=aT(\frac{n}{b})+ \Theta(f(n))$$
+
+        More specifically,
+
+        $$T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n))$$
+
+        $$a \rightarrow \text{number of subproblems in recurrence relation}$$
+        $$b \rightarrow \text{branching factor which reduces the subproblem with each recursive call}$$
+        $$\text{Base Case} \rightarrow T(0) = \Theta(1)$$
+    </p>
+    <p>
+        Moreover, the following variable must be defined using variables a and b,
+        $$c_{critical} = \textit{the work to split/recombine vs subproblems}$$
+        $$= \textit{log(# of subproblems)/log(relative problem size)}$$
+        $$= log(a)/log(b)$$
+        $$= log_{b} a $$
+    </p>
+    <p>This method can be used to solve all recurrences which adhere to the following rules:</p>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item">a must be be at least 0</li>
+        <li class="list-group-item list-group-item">b must be an integer larger than 1</li>
+        <li class="list-group-item list-group-item">k must be at least 0</li>
+        <li class="list-group-item list-group-item">i must be at least 0</li>
+        <li class="list-group-item list-group-item">All argument values must be constants</li>
+        <li class="list-group-item list-group-item">Must have polynomial difference between, $$f(n) \text{ and }
+            n^{\log _{b} a}$$</li>
+    </ul>
+    <p class="mt-5">
+        If each of these criteria is met, you may then solve your recurrence with the Master's Method! 
+        So what is this method, you ask?
+        The following table is a summary of what the theorem states,
+        <table class="table text-center table-light">
+            <thead class="thead-dark">
+                <th scope="col">Case</th>
+                <th scope="col">Condition</th>
+                <th scope="col">Master's Theorem bound</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>$$f(n) = O(n^c) \textit{ such that } c < c_{critical}$$</td> 
+                    <td>$$T(n) = \Theta(n^{c_{critical}})$$</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>$$f(n) = \Theta(n^{c_{critical}} log^{i} n)$$</td>
+                    <td>$$T(n) = \Theta(n^{c_{critical}} log^{i+1} n)$$</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>$$ f(n) = \Omega(n^c) \textit{ such that } c > c_{critical}$$</td>
+                    <td>$$T(n) = \Theta(f(n))$$</td>
+                </tr>
+            </tbody>
+        </table>
+    </p>
+</div>
+<br>
+<hr>
+
+{% endblock %}

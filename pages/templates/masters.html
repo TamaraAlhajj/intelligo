@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="container text-center">
+    <h1 class="display-4 font-italic">Master's Method Tool</h1>
+    <p class="font-weight-light">
+        This a tool to provide asymptotic analysis for divide-and-conquer recurrences, with the use of <a
+            href="{% url 'bigO' %}">big-O notaion</a>.
+        Just follow the rules stated above and enter your desired values for a, b, k, & i.
+        The solution will be generated along with the recursion tree.
+    </p>
+    <div class="row">
+        <form class="form-group col-12" method="post">
+            <label for="id_post" class="lead">
+                Input for Equation of the form, $$ T(n)=aT(\frac{n}{b})+ \Theta(n^{k}(log^{i}n))$$
+            </label>
+            <div class="input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">a</span>
+                </div>
+                {% csrf_token %}
+                {{ form.post_a }}
+            </div>
+            <div class="input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">b</span>
+                </div>
+                {% csrf_token %}
+                {{ form.post_b }}
+            </div>
+            <div class="input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">k</span>
+                </div>
+                {% csrf_token %}
+                {{ form.post_k }}
+            </div>
+            <div class="input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">i&nbsp;</span>
+                </div>
+                {% csrf_token %}
+                {{ form.post_i }}
+            </div>
+            <button type="submit" class="btn btn-outline-primary container-fluid btn-lg mt-4">Run Analysis</button>
+        </form>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-subtitle mb-2 text-muted">$${{ T }}$$</h5>
+            <div class="container">
+                {% for line in ans %}
+                $${{ line }}$$
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header text-muted">
+            <!-- <a href="{% static '../static/images/tree.png' %}" target="_blank"> -->
+            <a href="{% static '../static/tree.png' %}" target="_blank">
+                Click Here to see tree rendered as an image in full window view.
+            </a>
+        </div>
+        <div class="thumbnail">
+            <!-- <img src="{% static '../static/images/tree.png' %}" alt="Recursion Tree will be generated with input" style="width:100%"/> -->
+            <div id="list">
+                <p><iframe src="{% static '../static/tree.txt' %}" frameborder="0" height="400" width="95%"></iframe></p>
+            </div>
+            <div class="card-body caption">
+                <p>$${{ tree_msg }}$$</p>
+                <p>$${{ height }}$$</p>
+            </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

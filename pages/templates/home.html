@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <h1 class="display-4 font-italic">Understanding Complexity</h1>
+    <h5 class="text-muted">A web application to aid in understanding of asymptotic complexity theory.</h5>
+    <p>
+        The navbar will redirect you to the tools to provide asymptotic analysis of a given equation.
+        Just follow the instructions given on the page, and be sure that all input is in python's math format.
+        I hope this proves to be a helpful learning aid; take my survey and let me know what you think!
+    </p>
+    <a class="btn btn-primary" href="https://forms.gle/D8GoWAofKnFEnPRn6" target="_blank">Take Survey</a>
+</div>
+<hr>
+<br>
+<div class="container">
+    <h1 class="display-4 font-italic">About this project</h1>
+    <p class="lead text-muted">Check it out on <a href="https://www.github.com/TamaraAlhajj/Intelligo" target="_blank">github <i class="fab fa-github"></i></a></p>
+    <p>
+    Intelligo is my undergraduate honours project, completed winter 2019.
+    This project was intended to help those in COMP 3804 at Carleton University, in learning the basics of complexity theory.
+    <br>
+    Developed in chrome.
+    <br>
+    The web framework behind this application is <a href="https://www.djangoproject.com/" target="_blank">Django</a>.
+    <br>
+    The logic layer of this application was written in python3.7
+    <br>
+    The libraries I used with this are <a href="https://sympy.org/" target="_blank">SymPy</a>, <a href="https://pypi.org/project/anytree/" target="_blank">Anytree</a>, and <a href="https://graphviz.org/" target="_blank">graphviz</a>.
+    </p>
+</div>
+<br>
+{% endblock %}

@@ -1,0 +1,15 @@
+f(n) Root Node
+├── f(n/b) Node: 1
+│   ├── f(n/b^2) Node: 3
+│   │   ├── f(n/b^3) Node: 7
+│   │   └── f(n/b^3) Node: 8
+│   └── f(n/b^2) Node: 4
+│       ├── f(n/b^3) Node: 9
+│       └── f(n/b^3) Node: 10
+└── f(n/b) Node: 2
+    ├── f(n/b^2) Node: 5
+    │   ├── f(n/b^3) Node: 11
+    │   └── f(n/b^3) Node: 12
+    └── f(n/b^2) Node: 6
+        ├── f(n/b^3) Node: 13
+        └── f(n/b^3) Node: 14
