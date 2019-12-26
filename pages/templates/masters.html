@@ -63,17 +63,17 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header text-muted">
-            <!-- <a href="{% static '../static/images/tree.png' %}" target="_blank"> -->
-            <a href="{% static '../static/tree.png' %}" target="_blank">
-                Click Here to see tree rendered as an image in full window view.
-            </a>
+            Recursion Tree
         </div>
         <div class="thumbnail">
-            <!-- <img src="{% static '../static/images/tree.png' %}" alt="Recursion Tree will be generated with input" style="width:100%"/> -->
-            <div id="list">
-                <p><iframe src="{% static '../static/tree.txt' %}" frameborder="0" height="400" width="95%"></iframe></p>
-            </div>
             <div class="card-body caption">
+                <!-- <img src="{% static '../static/images/tree.png' %}" alt="Recursion Tree will be generated with input" style="width:100%"/> -->
+                <!-- <div id="list">
+                    <p><iframe src="{% static '../static/tree.txt' %}" frameborder="0" height="400" width="95%"></iframe></p>
+                </div> -->
+                <a class="lead font-italic" href="{% static '../static/tree.png' %}" target="_blank">
+                    Click Here to see tree rendered as an image in full window view.
+                </a>
                 <p>$${{ tree_msg }}$$</p>
                 <p>$${{ height }}$$</p>
             </div>
