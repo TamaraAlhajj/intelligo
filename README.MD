@@ -4,6 +4,12 @@
 
 _A web app to aid in understanding of asymptotic complexity theory, for my undergraduate honours project._
 
+### Overview
+Web app built for visualizing and learning about discrete maths, which gives thorough solutions to problems using asymptotic notation and graphs.
+User may enter an equation for `f(n)`, which will generate the `big-O` & `big-Omega` solutions using the limit as n grows to infty of `f(n)/g(n)`.
+Alternatively, user may enter a for divide-and-conquer recurrence, `T(n)`, which will generate the asymptotic analysis using the Master's Method.
+To complement the output of the Master's Method, the corresponding recursion tree for `T(n)` is generated dynamically, as a visual learning aid for the user.
+
 ## Install Anaconda
 
 To get the Anaconda 2019.03 for installer go to `https://www.anaconda.com/distribution/` and click on the installer for your OS.
