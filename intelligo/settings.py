@@ -15,16 +15,9 @@ import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#/home/tamrock/Documents/Honours/djangoapp/intelligo
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fbhb=q&hcriu7p-p*@k***p++wc($x1tv(b#sc@8!+vvn^dpt!'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+DEBUG = bool(os.getenv('DJANGO_DEBUG', default=False))
 
 ALLOWED_HOSTS = [
     'intelligo.up.railway.app',
