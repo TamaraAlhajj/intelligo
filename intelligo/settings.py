@@ -83,15 +83,26 @@ WSGI_APPLICATION = 'intelligo.wsgi.application'
 #     }
 # }
 
-# postgresql
+# local development
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'intelligo',
+#         'USER': 'tamaraalhajj',
+#         'PASSWORD': os.getenv('DB_PASSWORD'),
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'intelligo',
-        'USER': 'tamaraalhajj',
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('RAILWAY_POSTGRES_DB'),
+        'USER': os.getenv('RAILWAY_POSTGRES_USERNAME'),
+        'PASSWORD': os.getenv('RAILWAY_POSTGRES_PASSWORD'),
+        'HOST': os.getenv('RAILWAY_POSTGRES_HOST'),
+        'PORT': os.getenv('RAILWAY_POSTGRES_PORT'),
     }
 }
 
