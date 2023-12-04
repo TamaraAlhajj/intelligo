@@ -26,8 +26,7 @@ SECRET_KEY = 'fbhb=q&hcriu7p-p*@k***p++wc($x1tv(b#sc@8!+vvn^dpt!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['intelligo.herokuapp.com']
-
+ALLOWED_HOSTS = ['intelligo.up.railway.app']
 
 # Application definition
 
