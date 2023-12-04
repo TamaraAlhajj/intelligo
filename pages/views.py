@@ -67,7 +67,7 @@ class BigO(TemplateView):
                 limit_msg.append(
                     "Thus, this function has a upper bound of, $$O({})$$.".format(g))
 
-                if(constant is not 0):
+                if(constant != 0):
                     more_info.append(
                         "Since the limit as n grows to infinity is greater than 0 we can also say,")
                     if(solution["theta"] == True):
