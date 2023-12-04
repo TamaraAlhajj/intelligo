@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'intelligo.wsgi.application'
 #     }
 # }
 
-# local development
+# # local development
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',

@@ -18,3 +18,5 @@ sqlparse==0.3.0
 sympy==1.5
 typing_extensions==4.8.0
 whitenoise==5.0.1
+networkx
+matplotlib

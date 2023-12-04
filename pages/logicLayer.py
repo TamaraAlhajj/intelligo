@@ -1,15 +1,12 @@
 import os
 from sympy import *
 from sympy.parsing.sympy_parser import parse_expr
-
 from math import log
-
 from anytree import Node, RenderTree
-from anytree.exporter import DotExporter
-# To be used if DotExporter is not functional
-#from graphviz import Source, render
-
-import string
+import networkx as nx
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 
 def complexity(fn, guess=None):
@@ -306,6 +303,18 @@ def generate_tree(a, b, k, i):
     # render new tree image
     if os.path.exists("./pages/static/tree.png"):
         os.remove("./pages/static/tree.png")
-    DotExporter(d[0]).to_picture("./pages/static/tree.png")
+
+    # Create a new graph
+    G = nx.DiGraph()
+
+    # Add nodes and edges to the graph
+    for node in d.values():
+        G.add_node(node.name)
+        if node.parent is not None:
+            G.add_edge(node.parent.name, node.name)
+
+    # Draw the graph
+    nx.draw(G, with_labels=True)
+    plt.savefig("./pages/static/tree.png")
 
     return (height)
