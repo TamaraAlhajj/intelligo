@@ -98,11 +98,11 @@ WSGI_APPLICATION = 'intelligo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('RAILWAY_POSTGRES_DB'),
-        'USER': os.getenv('RAILWAY_POSTGRES_USERNAME'),
-        'PASSWORD': os.getenv('RAILWAY_POSTGRES_PASSWORD'),
-        'HOST': os.getenv('RAILWAY_POSTGRES_HOST'),
-        'PORT': os.getenv('RAILWAY_POSTGRES_PORT'),
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USERNAME'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('PGHOST'),
+        'PORT': os.getenv('PGPORT'),
     }
 }
 
@@ -148,15 +148,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-# PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-# STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
-# STATIC_URL = '/static/'
-
-# # Extra lookup directories for collectstatic to find static files
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_ROOT, 'static'),
-# )
 
 STATIC_URL = '/static/'
 
