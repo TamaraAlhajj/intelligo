@@ -1,12 +1,13 @@
+from django.conf import settings
 import os
 from sympy import *
 from sympy.parsing.sympy_parser import parse_expr
 from math import log
 from anytree import Node, RenderTree
-import networkx as nx
+# import networkx as nx
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 
 def complexity(fn, guess=None):
@@ -218,7 +219,6 @@ def masters(a, b, k, i):
 
         return (solution)
 
-
 def generate_tree(a, b, k, i):
 
     d = dict()
@@ -295,26 +295,15 @@ def generate_tree(a, b, k, i):
             total += 1
             count_children += 1
 
-    # render cmd line tree
-    with open('./pages/static/tree.txt', 'w') as f:
+    # Get the path to the media directory
+    media_dir = settings.MEDIA_ROOT
+
+    # Create the directory if it doesn't exist
+    os.makedirs(media_dir, exist_ok=True)
+
+    # Render cmd line tree
+    with open(os.path.join(media_dir, "tree.txt"), 'w') as f:
         for pre, fill, node in RenderTree(d[0]):
             print("%s%s" % (pre, node.name), file=f)
-            
-    # render new tree image
-    if os.path.exists("./pages/static/tree.png"):
-        os.remove("./pages/static/tree.png")
-
-    # Create a new graph
-    G = nx.DiGraph()
-
-    # Add nodes and edges to the graph
-    for node in d.values():
-        G.add_node(node.name)
-        if node.parent is not None:
-            G.add_edge(node.parent.name, node.name)
-
-    # Draw the graph
-    nx.draw(G, with_labels=True)
-    plt.savefig("./pages/static/tree.png")
 
     return (height)

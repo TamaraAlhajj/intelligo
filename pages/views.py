@@ -4,9 +4,8 @@ from pages.forms import ComplexityForm, MastersForm
 from pages.models import ComplexityPost, MastersPost
 from django.shortcuts import render, redirect
 from pages.logicLayer import complexity, masters, generate_tree
+from django.conf import settings
 import os
-
-
 
 class Home(TemplateView):
     template_name = "home.html"
@@ -149,11 +148,16 @@ class Masters(TemplateView):
                     height = "\\text{{These branches will continue to split until the tree is a height of }} {}.".format(
                         height)
 
+                # Read the contents of the tree.txt file
+                tree_file_path = os.path.join(settings.MEDIA_ROOT, 'tree.txt')
+                with open(tree_file_path, 'r') as file:
+                    tree_data = file.read().replace('\n', '<br>')
+
                 # init blank form
                 form = MastersForm()
 
-                args = {'form': form, 'T': T, 'ans': ans, 'tree_msg': tree_msg,
-                        'height': height, 'a': a, 'b': b, 'k': k, 'i': i}
+                args = {'form': form, 'T': T, 'ans': ans,
+                        'tree_msg': tree_msg, 'height': height, 'tree_data': tree_data}
 
                 return render(request, self.template_name, args)
 
