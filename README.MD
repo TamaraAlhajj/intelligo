@@ -57,5 +57,3 @@ f(n) Root Node
         └── f(n/27) Node: 14
 ```
 
-As shown above, the tree is rendered in a vertical format with the root node at the top and the child nodes in rows below. Each level of the tree is indented to represent its depth in the tree. The tree is rendered without lines, with child nodes printed on the next line with space in between.
-
