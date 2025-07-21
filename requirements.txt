@@ -8,17 +8,13 @@ Django==2.2.5
 fastcache==1.1.0
 fonttools==4.46.0
 gmpy2==2.1.5
-graphviz==0.13.2
 gunicorn==20.0.4
 importlib-resources==6.1.1
 kiwisolver==1.4.5
-matplotlib==3.7.4
 mpmath==1.1.0
 networkx==3.1
-numpy==1.24.4
 packaging==23.2
 Pillow==10.1.0
-psycopg2-binary==2.9.9
 pyparsing==3.1.1
 python-dateutil==2.8.2
 python-dotenv==1.0.0

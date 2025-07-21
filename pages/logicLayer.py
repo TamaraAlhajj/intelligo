@@ -5,8 +5,8 @@ from sympy.parsing.sympy_parser import parse_expr
 from math import log
 from anytree import Node, RenderTree
 # import networkx as nx
-import matplotlib
-matplotlib.use('Agg')
+# import matplotlib
+# matplotlib.use('Agg')
 # import matplotlib.pyplot as plt
 
 
