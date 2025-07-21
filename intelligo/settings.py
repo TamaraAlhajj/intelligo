@@ -11,16 +11,20 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import dj_database_url 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+if 'SECRET_KEY' in os.environ:
+    SECRET_KEY = os.environ['SECRET_KEY']
+elif bool(os.getenv('DJANGO_DEBUG', default=False)):
+    SECRET_KEY = 'dev-secret-key-change-me'
+else:
+    raise Exception("SECRET_KEY environment variable must be set in production!")
 DEBUG = bool(os.getenv('DJANGO_DEBUG', default=False))
 
 ALLOWED_HOSTS = [
-    'intelligo.up.railway.app',
+    'ethicsvc.up.railway.app',
     '127.0.0.1'
     ]
 
@@ -75,34 +79,20 @@ WSGI_APPLICATION = 'intelligo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# # local development
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'intelligo',
-#         'USER': 'tamaraalhajj',
-#         'PASSWORD': os.getenv('DB_PASSWORD'),
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
 
+# Use SQLite for local development and PythonAnywhere deployment
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('PGDATABASE'),
-        'USER': os.getenv('PGUSER'),
-        'PASSWORD': os.getenv('PGPASSWORD'),
-        'HOST': os.getenv('PGHOST'),
-        'PORT': os.getenv('PGPORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
-DATABASE_URL = os.getenv('DATABASE_URL')
-
-if DATABASE_URL:
-    prod_db  =  dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
-    DATABASES['default'].update(prod_db)
+# If you want to use PostgreSQL in the future, comment out the above and uncomment below:
+# import dj_database_url
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+# }
 
 
 # Password validation
@@ -145,6 +135,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "staticfiles"),
+    os.path.join(BASE_DIR, "pages/static"),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
