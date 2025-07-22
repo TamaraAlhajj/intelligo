@@ -2,9 +2,9 @@
 
 ## Complexity Theory Tool 
 _A web app to aid in understanding of asymptotic complexity theory, for my undergraduate honours project._
-Built and deployed with `Django`, `Python`, `Bootstrap` \& `Railway`.
+Built and deployed with `Django`, `Python`, `Bootstrap` \& `PythonAnywhere`.
 
-#### Check it out here: https://intelligo.up.railway.app/
+#### Check it out here: https://intelligo.pythonanywhere.com
 
 ## Overview
 Web app built for visualizing and learning about discrete maths, which gives thorough solutions to problems using asymptotic notation and graphs.
