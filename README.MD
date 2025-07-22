@@ -30,10 +30,10 @@ Then to launch the site,
 - `graphviz` python library for recursion tree visualization
 - `numpy` and `sympy` for computing calculus
 - Tested in Brave and Chrome browsers
-- Deployed with Railway and Postgres
+- Deployed with PythonAnywhere and SQLite
 
 ## Challenges
-Deploying was not possible with the original implementation of the tree using `graphviz`. It's a powerful tool for rendering graphical diagrams, including trees. However, it needs to be installed on the system running your code. This can make it difficult to use on some platforms, including Railway. Below is an example of a tree rendered with the `graphviz` implementation originally used:
+Deploying was not possible with the original implementation of the tree using `graphviz`. It's a powerful tool for rendering graphical diagrams, including trees. However, it needs to be installed on the system running your code. This can make it difficult to use on some platforms. Below is an example of a tree rendered with the `graphviz` implementation originally used:
 
 ![Example of graphviz implementation](./readme_ref/graphviz_tree.png)
 
